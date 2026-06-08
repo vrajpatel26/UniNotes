@@ -1,4 +1,4 @@
-import Semester from "../models/semester.model";
+import Semester from "../models/semester.model.js";
 
 export const createSemester = async (req, res) => {
     try {
@@ -23,5 +23,18 @@ export const createSemester = async (req, res) => {
         return res.status(200).json(semester)
     } catch (error) {
         return res.status(500).json({ message: `semester creation error ${error}` })
+    }
+}
+
+
+
+export const getAllSemesters = async (req,res) =>{
+    try {
+        const semesters = await Semester.find()
+
+        return res.status(200).json(semesters)
+        
+    } catch (error) {
+        return res.status(500).json({message:`get All semesters error ${error}`})
     }
 }
