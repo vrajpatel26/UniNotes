@@ -21,12 +21,12 @@ export const createSubject = async (req, res) => {
             return res.status(400).json({ message: `subject code already exist` })
         }
 
-        const existSubject = await Subject.findOne({
+        const existingSubject = await Subject.findOne({
             subjectName,
             semesterId
         })
 
-        if (existSubject) {
+        if (existingSubject) {
             return res.status(400).json({ message: "Subject already exists in this semester" })
         }
 

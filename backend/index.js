@@ -12,6 +12,7 @@ import userRouter from "./routes/user.route.js";
 import cors from "cors"
 import semesterRouter from "./routes/semester.route.js";
 import subjectRouter from "./routes/subject.route.js";
+import unitRouter from "./routes/unit.route.js";
 
 const PORT = process.env.PORT || 5000
 
@@ -30,6 +31,8 @@ app.use("/api/auth",authRouter)
 app.use("/api/user",userRouter)
 app.use("/api/semester",semesterRouter)
 app.use("/api/subject",subjectRouter)
+app.use("/api/unit",unitRouter)
+
 
 
 app.listen(PORT,()=>{
