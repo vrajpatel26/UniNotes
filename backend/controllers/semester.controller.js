@@ -1,0 +1,27 @@
+import Semester from "../models/semester.model";
+
+export const createSemester = async (req, res) => {
+    try {
+        const { semesterNumber } = req.body
+
+        if (!semesterNumber) {
+            return res.status(400).json({
+                message: "This field is required"
+            });
+        }
+
+        const isSemesterNumberExist = await Semester.findOne({ semesterNumber })
+
+        if (isSemesterNumberExist) {
+            return res.status(400).json({ message: "semester number already exist" })
+        }
+
+        const semester = await Semester.create({
+            semesterNumber
+        })
+
+        return res.status(200).json(semester)
+    } catch (error) {
+        return res.status(500).json({ message: `semester creation error ${error}` })
+    }
+}
