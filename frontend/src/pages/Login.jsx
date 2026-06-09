@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import logo from "../assets/logo.png"
-import api from '../services/api'
+import api from '../services/api.js'
 
 
 const Login = () => {

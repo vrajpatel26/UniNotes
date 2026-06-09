@@ -58,7 +58,10 @@ export const createNote = async (req, res) => {
             req.file.buffer
         )
 
+        console.log(uploadResult);
+        
         const fileUrl = uploadResult.secure_url
+
 
         const note = await Note.create({
             title,
