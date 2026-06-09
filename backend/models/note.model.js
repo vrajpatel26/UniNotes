@@ -13,7 +13,6 @@ const noteSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Unit",
         required: true,
-        unique:true
     },
     uploadedBy: {
         type: mongoose.Schema.Types.ObjectId,
