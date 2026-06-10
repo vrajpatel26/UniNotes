@@ -8,7 +8,7 @@ const uploadToCloudinary = (fileBuffer) => {
     return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
             {
-                resource_type: "raw",
+                resource_type: "auto",
                 folder: "uninotes"
             },
             (error, result) => {
@@ -58,8 +58,6 @@ export const createNote = async (req, res) => {
             req.file.buffer
         )
 
-        console.log(uploadResult);
-        
         const fileUrl = uploadResult.secure_url
 
 

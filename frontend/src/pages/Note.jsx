@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import {useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import api from '../services/api'
 
 const Note = () => {
@@ -31,7 +31,7 @@ const Note = () => {
                     <div
                         className='h-[100px] flex justify-center items-center w-[300px] bg-slate-700 rounded-[16px] text-white cursor-pointer'
                         key={note._id}
-                        onClick={() => window.open(note.fileUrl)}
+                        onClick={() => window.open(note.fileUrl, "_blank")}
                     >
                         title : {note.title}
                     </div>
