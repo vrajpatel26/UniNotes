@@ -4,12 +4,13 @@ import Note from "../models/note.model.js"
 import Unit from "../models/unit.model.js"
 
 
-const uploadToCloudinary = (fileBuffer) => {
+const uploadToCloudinary = (fileBuffer,unitNumberAndTitle) => {
     return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
             {
                 resource_type: "auto",
-                folder: "uninotes"
+                folder: "uninotes",
+                   public_id: unitNumberAndTitle
             },
             (error, result) => {
                 if (error) reject(error);
@@ -53,13 +54,16 @@ export const createNote = async (req, res) => {
                 message: "Note title already exists in this unit"
             })
         }
+
+        //unit-1-introduction
+        const unitNumberAndTitle = `Unit-${isUnitExist.unitNumber}-${title}`
         
         const uploadResult = await uploadToCloudinary(
-            req.file.buffer
+            req.file.buffer,
+            unitNumberAndTitle
         )
 
         const fileUrl = uploadResult.secure_url
-
 
         const note = await Note.create({
             title,
