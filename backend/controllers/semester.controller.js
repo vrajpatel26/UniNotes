@@ -21,6 +21,7 @@ export const createSemester = async (req, res) => {
         })
 
         return res.status(200).json(semester)
+
     } catch (error) {
         return res.status(500).json({ message: `semester creation error ${error}` })
     }
@@ -28,13 +29,15 @@ export const createSemester = async (req, res) => {
 
 
 
-export const getAllSemesters = async (req,res) =>{
+export const getAllSemesters = async (req, res) => {
     try {
-        const semesters = await Semester.find()
+        const semesters = await Semester.find().sort({
+            semesterNumber: 1 //for sort like 1,2,3,4...
+        })
 
         return res.status(200).json(semesters)
-        
+
     } catch (error) {
-        return res.status(500).json({message:`get All semesters error ${error}`})
+        return res.status(500).json({ message: `get All semesters error ${error}` })
     }
 }

@@ -4,13 +4,13 @@ import Note from "../models/note.model.js"
 import Unit from "../models/unit.model.js"
 
 
-const uploadToCloudinary = (fileBuffer,unitNumberAndTitle) => {
+const uploadToCloudinary = (fileBuffer, unitNumberAndTitle) => {
     return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
             {
                 resource_type: "auto",
                 folder: "uninotes",
-                   public_id: unitNumberAndTitle
+                public_id: unitNumberAndTitle
             },
             (error, result) => {
                 if (error) reject(error);
@@ -24,7 +24,7 @@ const uploadToCloudinary = (fileBuffer,unitNumberAndTitle) => {
 
 
 export const createNote = async (req, res) => {
-
+ 
     try {
         const { title, unitId, uploadedBy } = req.body
 
@@ -55,9 +55,13 @@ export const createNote = async (req, res) => {
             })
         }
 
+        const safeTitle = title
+            .replace(/[^a-zA-Z0-9 ]/g, "")
+            .replace(/\s+/g, "-")
+
         //unit-1-introduction
-        const unitNumberAndTitle = `Unit-${isUnitExist.unitNumber}-${title}`
-        
+        const unitNumberAndTitle = `Unit-${isUnitExist.unitNumber}-${safeTitle}`
+
         const uploadResult = await uploadToCloudinary(
             req.file.buffer,
             unitNumberAndTitle
@@ -73,7 +77,10 @@ export const createNote = async (req, res) => {
         })
 
         return res.status(201).json(note)
+
     } catch (error) {
+        console.log(error);
+
         return res.status(500).json({ message: `Note creation error ${error}` })
     }
 

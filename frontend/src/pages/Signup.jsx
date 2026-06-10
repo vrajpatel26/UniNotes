@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import logo from "../assets/logo.png"
 import api from '../services/api.js'
-
+import { useNavigate } from 'react-router-dom'
 
 
 const Signup = () => {
@@ -9,7 +9,8 @@ const Signup = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-   
+    const navigate = useNavigate()
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -87,8 +88,9 @@ const Signup = () => {
 
                         <p className='text-[14px] sm:text-[16px] text-center px-2 text-gray-300'>
                             Already Have An Account?{" "}
-                            <span 
-                            className='text-purple-800 cursor-pointer'>
+                            <span
+                                onClick={() => navigate("/login")}
+                                className='text-purple-800 cursor-pointer'>
                                 Login
                             </span>
                         </p>

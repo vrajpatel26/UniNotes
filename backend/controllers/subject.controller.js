@@ -61,3 +61,15 @@ export const getSubjectBySemester = async (req, res) => {
         return res.status(500).json({ message: `getting subject error ${error}` })
     }
 }
+
+
+export const getAllSubjects = async(req,res) =>{
+    try {
+        const subjects = await Subject.find()
+
+        return res.status(200).json(subjects)
+    } catch (error) {
+        return res.status(500).json({ message: `getting all subject error ${error}` })
+        
+    }
+}

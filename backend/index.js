@@ -37,7 +37,6 @@ app.use("/api/note",noteRouter)
 
 
 
-
 app.listen(PORT,()=>{
     connectDB()
     console.log(`server started on ${PORT} PORT`)

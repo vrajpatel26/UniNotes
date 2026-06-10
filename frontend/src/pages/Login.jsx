@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import logo from "../assets/logo.png"
 import api from '../services/api.js'
+import { useNavigate } from 'react-router-dom'
 
 
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -18,6 +20,12 @@ const Login = () => {
             })
 
             console.log(response.data);
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify(response.data.user)
+            )
+
             setEmail("")
             setPassword("")
 
@@ -75,9 +83,9 @@ const Login = () => {
 
                         <p className='text-[14px] sm:text-[16px] text-center px-2 text-gray-300'>
                             Don't Have An Account?{" "}
-                            <span 
-                         
-                            className='text-purple-800 cursor-pointer'>
+                            <span
+                                onClick={() => navigate("/signup")}
+                                className='text-purple-800 cursor-pointer'>
                                 Sign Up
                             </span>
                         </p>
