@@ -18,7 +18,7 @@ const Login = () => {
                 email,
                 password
             })
-            
+
             console.log(response.data);
 
             localStorage.setItem(
@@ -37,46 +37,66 @@ const Login = () => {
 
     }
     return (
-        <div className='bg-slate-950 min-h-screen w-full flex flex-col items-center py-[30px] gap-[40px]'>
+        <div className='bg-slate-950 min-h-screen w-full flex flex-col items-center py-8 px-4 gap-8'>
 
             <div className='flex justify-center items-center'>
-                <img src={logo} alt="" className='h-[70px] w-[70px]' />
-                <h1 className='text-gray-300 text-[30px] font-bold'>Uni<span className='text-purple-400 font-serif'>Notes</span></h1>
+                <img
+                    src={logo}
+                    alt=""
+                    className='h-[50px] w-[50px] sm:h-[70px] sm:w-[70px]'
+                />
+
+                <h1 className='text-gray-300 text-2xl sm:text-3xl font-bold'>
+                    Uni<span className='text-purple-400 font-serif'>Notes</span>
+                </h1>
             </div>
 
-            <div className='bg-slate-900  w-[30%] rounded-[20px] py-[30px] '>
-                <div className='flex flex-col items-center justify-center'>
-                    <h1 className='text-purple-800 text-[40px] font-bold font-serif'>welcome back!</h1>
+            <div className='bg-slate-900 py-8 w-[95%] sm:w-[80%] md:w-[60%] lg:w-[40%] xl:w-[30%] rounded-[20px]'>
 
+                <div className='flex flex-col items-center justify-center px-4'>
+                    <h1 className='text-purple-800 text-3xl sm:text-4xl font-bold font-serif text-center'>
+                        Welcome Back!
+                    </h1>
                 </div>
 
                 <div className='flex items-center justify-center'>
 
-                    <form onSubmit={handleSubmit} className='w-[70%] flex flex-col gap-[20px] pt-[30px]'>
-
+                    <form
+                        onSubmit={handleSubmit}
+                        className='w-[85%] sm:w-[75%] flex flex-col gap-5 pt-8'
+                    >
 
                         <div className='flex flex-col justify-start gap-[5px]'>
-                            <label className='text-gray-300 text-[15px]'>Email</label>
+                            <label className='text-gray-300 text-[15px]'>
+                                Email
+                            </label>
+
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className='w-[100%] h-[40px] px-3 bg-slate-950 text-gray-300 rounded border  hover:border-purple-800 outline-none border-slate-700' />
+                                className='w-full h-[40px] px-3 bg-slate-950 text-gray-300 rounded border hover:border-purple-800 outline-none border-slate-700'
+                            />
                         </div>
 
                         <div className='flex flex-col justify-start gap-[5px]'>
-                            <label className='text-gray-300 text-[15px]'>Password</label>
+                            <label className='text-gray-300 text-[15px]'>
+                                Password
+                            </label>
+
                             <input
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className='w-[100%] h-[40px] px-3 bg-slate-950 text-gray-300 rounded border hover:border-purple-800 outline-none border-slate-700' />
+                                className='w-full h-[40px] px-3 bg-slate-950 text-gray-300 rounded border hover:border-purple-800 outline-none border-slate-700'
+                            />
                         </div>
 
-                        <div className='flex items-center justify-center pt-[20px]' >
+                        <div className='flex items-center justify-center pt-4'>
                             <button
                                 type='submit'
-                                className='bg-purple-800 h-[40px] w-full rounded text-gray-300 hover:bg-purple-700 '>
+                                className='bg-purple-800 h-[40px] w-full rounded text-gray-300 hover:bg-purple-700 transition-all duration-300'
+                            >
                                 Login
                             </button>
                         </div>
@@ -85,13 +105,18 @@ const Login = () => {
                             Don't Have An Account?{" "}
                             <span
                                 onClick={() => navigate("/signup")}
-                                className='text-purple-800 cursor-pointer'>
+                                className='text-purple-500 cursor-pointer hover:text-purple-400'
+                            >
                                 Sign Up
                             </span>
                         </p>
+
                     </form>
+
                 </div>
+
             </div>
+
         </div>
     )
 }
