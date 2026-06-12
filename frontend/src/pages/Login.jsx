@@ -18,7 +18,7 @@ const Login = () => {
                 email,
                 password
             })
-
+            
             console.log(response.data);
 
             localStorage.setItem(
