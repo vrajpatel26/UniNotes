@@ -16,7 +16,7 @@ const HowItWorks = () => {
   return (
     <>
       <div
-        className='min-h-[90vh] bg-slate-950 flex flex-col gap-[50px] items-center justify-center text-center px-4'
+        className='py-5 lg:py-0 min-h-[90vh] bg-slate-950 flex flex-col gap-[50px] items-center justify-center text-center px-4'
       >
         <div className='flex flex-col gap-[10px]'>
           <h2 className="text-[20px] font-semibold text-purple-500 text-center">

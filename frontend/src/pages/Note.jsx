@@ -39,6 +39,8 @@ const Note = () => {
                 }
             </div>
         </div>
+
+        
     )
 }
 

@@ -9,15 +9,19 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
     const navigate = useNavigate()
     return (
-        <div className='w-full bg-slate-950 py-[10px] px-[40px] border-b border-gray-500 
+        <div className='w-full bg-slate-950 py-[10px] px-4 md:px-10 border-b border-gray-500 
         sticky top-0 z-50  '>
             <div className='flex justify-between items-center '>
                 <div
                     className='flex items-center cursor-pointer'
-                    onClick={() => navigate("/")} >
+                    onClick={() => {
+                        navigate("/")
+                        window.scrollTo(0, 0)
+                    }
+                    } >
 
                     <img src={logo} alt="" className='h-[50px] w-[50px]' />
-                    <h1 className='text-gray-300 text-[25px] font-bold'>Uni<span className='text-purple-400 font-serif'>Notes</span></h1>
+                    <h1 className='text-gray-300 text-lg sm:text-xl md:text-[25px] font-bold'>Uni<span className='text-purple-400 font-serif'>Notes</span></h1>
                 </div>
                 <ul className='hidden md:flex text-gray-300 gap-[40px] text-xl'>
                     <li className='text-[20px] font-semibold cursor-pointer hover:text-purple-400 transition-all duration-300'>
