@@ -6,7 +6,7 @@ import api from '../services/api'
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FiBookOpen } from "react-icons/fi";
 import { HiOutlineSquare3Stack3D } from "react-icons/hi2";
-
+import mathamatics from "../assets/mathamatics.avif"
 
 const Subject = () => {
     const { semesterId } = useParams()
@@ -48,28 +48,29 @@ const Subject = () => {
         <div className='w-full bg-slate-950 min-h-screen flex flex-col gap-[50px]'>
             <div className='text-white flex flex-col items-center p-5'>
 
-                <h1 className='text-[40px] font-bold font-serif'>Choose Your <span className='text-purple-500'>Semester</span></h1>
-                <p className='text-[18px] text-gray-400'>Eight semesters of curated notes. Pick yours to dive into subjects and units.</p>
+                <h1 className='text-[40px] font-bold font-serif'>Pick a <span className='text-purple-500'>subject</span></h1>
+                <p className='text-[18px] text-gray-400'>4 subjects available this semester. Tap any course to open its units.</p>
             </div>
 
 
-            <div className='w-full flex  '>
+            <div className='w-full flex justify-center'>
                 <div className=''>
                     <div className='flex flex-wrap items-center justify-center gap-[20px]'>
                         {subjects.map((subject) => (
                             <div
-                                className='h-[170px] w-[320px]  bg-slate-700 rounded-[16px] text-white cursor-pointer border border-gray-700 hover:border-purple-500 hover:-translate-y-2 duration-300 '
+                                className='h-[480px] w-[380px]  bg-slate-700 rounded-[16px] text-white cursor-pointer border border-gray-700 hover:border-purple-500 hover:-translate-y-2 duration-300
+                                pt-5 flex flex-col gap-[15px]'
                                 key={subject._id}
                                 onClick={() => navigate(`/unit/${subject._id}`)}
                             >
-                                <div className='flex relative'>
-
-                                    <div className='p-5 '>
-                                        <h1 className='text-[15px] text-gray-300'>SUBJECT</h1>
-                                        <h1 className='text-[20px] text-purple-500 font-bold'>{subject.subjectName}</h1>
+                                <div className='flex justify-center items-center'>
+                                    <div className='h-[180px] w-[90%] border border-purple-500 rounded-xl '>
+                                        <img src={mathamatics} alt="" className='h-[100%] w-[100%] rounded-xl' />
                                     </div>
-                                    <FaArrowRightLong className='text-gray-300 text-[20px] absolute right-7 top-5' />
+                                </div>
 
+                                <div className='flex flex-col items-start pl-5 justify-center'>
+                                    <h1 className='text-[20px] font-semibold'>{subject.subjectName}</h1>
                                 </div>
 
 
