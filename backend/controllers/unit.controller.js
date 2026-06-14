@@ -80,7 +80,7 @@ export const updateUnit = async (req, res) => {
         )
 
         return res.status(200).json(updatedUnit)
-        
+
     } catch (error) {
         return res.status(500).json({ message: `update unit error ${error}` })
 
@@ -96,6 +96,7 @@ export const deleteUnit = async (req, res) => {
         })
 
         return res.status(200).json({ message: "delete unit successfully" })
+        
     } catch (error) {
         return res.status(500).json({ message: `delete unit error ${error}` })
     }

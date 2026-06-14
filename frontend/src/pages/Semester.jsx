@@ -79,7 +79,7 @@ const Semester = () => {
                         <div className='flex flex-wrap justify-center gap-5 overflow-x-auto lg:overflow-x-visible pb-5'>
                             {semesters.map((sem) => (
                                 <div
-                                    className='h-[170px] w-[320px]  bg-slate-700 rounded-[16px] text-white cursor-pointer border border-gray-700 hover:border-purple-500 hover:-translate-y-2 duration-300 '
+                                    className='h-[170px] w-[320px]  bg-slate-900 rounded-[16px] text-white cursor-pointer border border-gray-700 hover:border-purple-500 hover:-translate-y-2 duration-300 '
                                     key={sem._id}
                                     onClick={() => navigate(`/subject/${sem._id}`)}
                                 >

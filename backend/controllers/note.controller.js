@@ -24,7 +24,7 @@ const uploadToCloudinary = (fileBuffer, unitNumberAndTitle) => {
 
 
 export const createNote = async (req, res) => {
- 
+
     try {
         const { title, unitId, uploadedBy } = req.body
 
@@ -101,16 +101,47 @@ export const getNoteByUnitId = async (req, res) => {
 }
 
 
-export const getAllNotes = () =>{
+export const getAllNotes = async (req, res) => {
+    try {
+        const notes = await Note.find().populate("unitId")
 
+        return res.status(200).json(notes)
+
+    } catch (error) {
+        return res.status(500).json({ message: `getting all notes error ${error}` })
+    }
 }
 
 
-export const updateNote = () =>{
+export const updateNote = async (req, res) => {
+    try {
+        const { id } = req.params
 
+        const { title } = req.body
+
+        const updatedNote = await Note.findByIdAndUpdate(
+            id,
+            { title },
+            { new: true }
+        )
+
+        return res.status(200).json(updatedNote)
+    } catch (error) {
+        return res.status(500).json({ message: `update note error ${error}` })
+    }
 }
 
 
-export const deleteNote = () =>{
-    
+export const deleteNote = async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const deletedNote = await Note.deleteOne({
+            _id: id
+        })
+
+        return res.status(200).json({ message: `note deleted successfully` })
+    } catch (error) {
+        return res.status(500).json({ message: `note delete error ${error}` })
+    }
 }
