@@ -27,6 +27,22 @@ const Admin = () => {
                     onClick={() => navigate("/admin/note")}
                     className='h-[100px] flex justify-center items-center w-[300px] bg-slate-700 rounded-[16px] text-white cursor-pointer'> Create Note
                 </div>
+
+
+                <div
+                    onClick={() => navigate("/admin/manage-subject")}
+                    className='h-[100px] flex justify-center items-center w-[300px] bg-slate-700 rounded-[16px] text-white cursor-pointer'> Manage Subjects
+                </div>
+
+                <div
+                    onClick={() => navigate("/admin/manage-unit")}
+                    className='h-[100px] flex justify-center items-center w-[300px] bg-slate-700 rounded-[16px] text-white cursor-pointer'> Manage Units
+                </div>
+
+                    <div
+                    onClick={() => navigate("/admin/manage-note")}
+                    className='h-[100px] flex justify-center items-center w-[300px] bg-slate-700 rounded-[16px] text-white cursor-pointer'> Manage Notes
+                </div>
             </div>
         </div>
     )

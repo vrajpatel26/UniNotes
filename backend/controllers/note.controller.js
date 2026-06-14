@@ -99,3 +99,18 @@ export const getNoteByUnitId = async (req, res) => {
         return res.status(500).json({ message: `get notes by unitId error ${error}` })
     }
 }
+
+
+export const getAllNotes = () =>{
+
+}
+
+
+export const updateNote = () =>{
+
+}
+
+
+export const deleteNote = () =>{
+    
+}

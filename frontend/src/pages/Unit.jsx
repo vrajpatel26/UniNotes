@@ -90,7 +90,7 @@ const Unit = () => {
 
                     <div className="flex gap-4">
 
-                        <FaArrowRightLong className='text-purple-500 text-[35px] absolute lg:right-[80px] lg:top-[33px] right-[120px] bottom-2' />
+                        <FaArrowRightLong className='text-purple-500 text-[35px] absolute lg:right-[80px] lg:top-[33px] right-[135px] bottom-2' />
 
                     </div>
                 </div>

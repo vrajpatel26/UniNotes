@@ -52,9 +52,9 @@ const Subject = () => {
                 <p className='text-[15px] text-center lg:text-[18px] text-gray-400'>Explore the available courses for this semester. Tap any course to open its units.</p>
 
             </div>
-            <div 
-            onClick={()=>navigate("/semester")}
-            className='flex justify-center items-center gap-[10px] border border-gray-800 w-[200px] rounded-[20px] ml-[50px] lg:ml-[180px] p-2 cursor-pointer hover:border-gray-500'>
+            <div
+                onClick={() => navigate("/semester")}
+                className='flex justify-center items-center gap-[10px] border border-gray-800 w-[200px] rounded-[20px] ml-[50px] lg:ml-[180px] p-2 cursor-pointer hover:border-gray-500'>
                 <FaArrowLeftLong className='text-gray-400  ' />
                 <h1 className='text-[15px] text-gray-400 font-semibold' >Back to Semester</h1>
             </div>
@@ -75,7 +75,7 @@ const Subject = () => {
                                     </div>
                                 </div>
 
-                                <div className='flex flex-col items-start pl-5 justify-center'>
+                                <div className='flex flex-col items-start pl-5 pr-5 justify-start h-[60px]  border-gray-400'>
                                     <h1 className='text-[20px] font-semibold'>{subject.subjectName}</h1>
                                 </div>
 
@@ -93,7 +93,7 @@ const Subject = () => {
                                         Explore Course
 
                                     </button>
-                                    <FaArrowRightLong className='text-gray-300 text-[20px] absolute bottom-[82px] right-[60px] lg:right-[100px]   ' />
+                                    <FaArrowRightLong className='text-gray-300 text-[20px] absolute bottom-[52px] right-[60px] lg:right-[100px]   ' />
                                 </div>
                             </div>
                         ))

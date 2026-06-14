@@ -49,8 +49,54 @@ export const getUnitBySubject = async (req, res) => {
         })
 
         return res.status(200).json(units)
-        
+
     } catch (error) {
         return res.status(500).json({ message: `getting units error ${error}` })
+    }
+}
+
+
+export const getAllUnits = async (req, res) => {
+    try {
+        const units = await Unit.find().populate("subjectId")
+
+        return res.status(200).json(units)
+    } catch (error) {
+        return res.status(500).json({ message: `getting all units error ${error}` })
+    }
+}
+
+
+export const updateUnit = async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const { unitName } = req.body
+
+        const updatedUnit = await Unit.findByIdAndUpdate(
+            id,
+            { unitName },
+            { new: true }
+        )
+
+        return res.status(200).json(updatedUnit)
+        
+    } catch (error) {
+        return res.status(500).json({ message: `update unit error ${error}` })
+
+    }
+}
+
+export const deleteUnit = async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const deleteUnit = await Unit.deleteOne({
+            _id: id
+        })
+
+        return res.status(200).json({ message: "delete unit successfully" })
+    } catch (error) {
+        return res.status(500).json({ message: `delete unit error ${error}` })
     }
 }

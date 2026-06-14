@@ -17,6 +17,9 @@ import Navbar from './components/Navbar'
 import MainLayout from './layout/MainLayout'
 import About from './pages/About'
 import HowItWorks from './pages/HowItWorks'
+import ManageSubject from './pages/Admin/ManageSubject'
+import ManageUnit from './pages/Admin/ManageUnit'
+import ManageNote from './pages/Admin/ManageNote'
 
 const App = () => {
    return (
@@ -51,15 +54,33 @@ const App = () => {
                   <AdminSubject />
                </ProtectedRoute>} />
 
+            <Route path='/admin/manage-subject'
+               element={<ProtectedRoute>
+                  <ManageSubject />
+               </ProtectedRoute>}
+            />
+
             <Route path='/admin/unit'
                element={<ProtectedRoute>
                   <AdminUnit />
                </ProtectedRoute>} />
 
+            <Route path='/admin/manage-unit'
+               element={<ProtectedRoute>
+                  <ManageUnit />
+               </ProtectedRoute>}
+            />
+
             <Route path='/admin/note'
                element={<ProtectedRoute>
                   <AdminNote />
                </ProtectedRoute>} />
+
+                <Route path='/admin/manage-note'
+               element={<ProtectedRoute>
+                  <ManageNote />
+               </ProtectedRoute>}
+            />
          </Routes>
       </>
    )
