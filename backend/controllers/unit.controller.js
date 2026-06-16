@@ -1,3 +1,4 @@
+import Note from "../models/note.model.js"
 import Subject from "../models/subject.model.js"
 import Unit from "../models/unit.model.js"
 
@@ -91,12 +92,16 @@ export const deleteUnit = async (req, res) => {
     try {
         const { id } = req.params
 
+        await Note.deleteMany({
+            unitId: id
+        });
+
         const deleteUnit = await Unit.deleteOne({
             _id: id
         })
 
         return res.status(200).json({ message: "delete unit successfully" })
-        
+
     } catch (error) {
         return res.status(500).json({ message: `delete unit error ${error}` })
     }

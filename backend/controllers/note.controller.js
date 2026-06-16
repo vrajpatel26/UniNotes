@@ -136,6 +136,7 @@ export const deleteNote = async (req, res) => {
     try {
         const { id } = req.params
 
+      
         const deletedNote = await Note.deleteOne({
             _id: id
         })

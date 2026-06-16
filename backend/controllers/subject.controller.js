@@ -1,5 +1,7 @@
+import Note from "../models/note.model.js"
 import Semester from "../models/semester.model.js"
 import Subject from "../models/subject.model.js"
+import Unit from "../models/unit.model.js"
 
 export const createSubject = async (req, res) => {
     try {
@@ -105,9 +107,26 @@ export const deleteSubject = async (req, res) => {
     try {
         const { id } = req.params
 
-        const deleteSubject = await Subject.deleteOne({
+        
+        const units = await Unit.find({
+            subjectId: id
+        });
+
+        const unitIds = units.map(unit => unit._id);
+
+        await Note.deleteMany({
+            unitId: {
+                $in: unitIds
+            }
+        });
+
+        await Unit.deleteMany({
+            subjectId: id
+        });
+
+        await Subject.deleteOne({
             _id: id
-        })
+        });
 
         return res.status(200).json({ message: "subject delete successfully" })
 
