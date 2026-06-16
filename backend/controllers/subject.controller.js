@@ -66,6 +66,9 @@ export const getSubjectBySemester = async (req, res) => {
 export const getAllSubjects = async (req, res) => {
     try {
         const subjects = await Subject.find().populate("semesterId")
+        subjects.sort(
+            (a, b) => a.semesterId.semesterNumber - b.semesterId.semesterNumber
+        );
 
         return res.status(200).json(subjects)
 
