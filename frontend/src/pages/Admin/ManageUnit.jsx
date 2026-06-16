@@ -2,9 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import logo from "../../assets/logo.png";
 import api from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const ManageUnit = () => {
   const [units, setUnits] = useState([])
+  const [editUnitId, setEditUnitId] = useState(null)
+  const [updatedUnitName, setUpdatedUnitName] = useState("")
+  const [updatedUnitNumber, setUpdatedUnitNumber] = useState("")
+  const [isEditing, setIsEditing] = useState(false)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getAllUnits = async () => {
@@ -27,6 +34,38 @@ const ManageUnit = () => {
       setUnits((prev) => prev.filter((unit) => unit._id !== id))
     } catch (error) {
       console.log("delete unit error", error)
+    }
+  }
+
+
+  const handleEdit = (unit) => {
+    setEditUnitId(unit._id)
+    setUpdatedUnitName(unit.unitName)
+    setUpdatedUnitNumber(unit.unitNumber)
+    setIsEditing(true)
+  }
+
+  const handleUpdate = async () => {
+    try {
+      const res = await api.put(`/unit/${editUnitId}`, {
+        unitName: updatedUnitName,
+        unitNumber: Number(updatedUnitNumber)
+      })
+
+      setUnits(prev =>
+        prev.map(unit =>
+          unit._id === editUnitId ?
+            { ...unit, unitName: updatedUnitName, unitNumber: updatedUnitNumber } : unit
+        )
+      )
+
+      setIsEditing(false)
+      setEditUnitId(null)
+      setUpdatedUnitName("")
+      setUpdatedUnitNumber("")
+
+    } catch (error) {
+      console.log("update unit error", error)
     }
   }
 
@@ -61,6 +100,50 @@ const ManageUnit = () => {
           </h1>
         </div>
 
+        {
+          isEditing && (
+            <div className="max-w-2xl mx-auto mb-6 bg-slate-900 border border-purple-500 rounded-xl p-4">
+              <h2 className="text-white text-lg mb-3">
+                Edit Unit
+              </h2>
+
+              <input
+                type="number"
+                value={updatedUnitNumber}
+                onChange={(e) => setUpdatedUnitNumber(e.target.value)}
+                className="w-full p-3 rounded-lg bg-slate-800 text-white border border-gray-600"
+              />
+
+              <input
+                type="text"
+                value={updatedUnitName}
+                onChange={(e) => setUpdatedUnitName(e.target.value)}
+                className="w-full p-3 rounded-lg bg-slate-800 text-white border border-gray-600"
+              />
+
+              <div className="flex gap-3 mt-4">
+                <button
+                  onClick={handleUpdate}
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
+                >
+                  Update
+                </button>
+
+                <button
+                  onClick={() => {
+                    setIsEditing(false);
+                    setEditUnitId(null);
+                    setUpdatedUnitNumber("")
+                    setUpdatedUnitName("");
+                  }}
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )
+        }
 
         <div className="space-y-4 max-w-6xl mx-auto">
           {units.map((unit) => (
@@ -109,15 +192,9 @@ const ManageUnit = () => {
 
               <div className="flex gap-2 w-full lg:w-auto">
                 <button
-                  className="
-                        flex-1 lg:flex-none
-                        flex items-center justify-center gap-2
-                        rounded-lg bg-purple-600
-                        px-4 py-2
-                        text-white
-                        hover:bg-purple-800
-                        transition
-                      "
+                  onClick={() => handleEdit(unit)}
+                  className="flex-1 lg:flex-none flex items-center justify-center gap-2 rounded-lg bg-purple-600 px-4 py-2
+                 text-white hover:bg-purple-800 transition"
                 >
                   <FiEdit />
                   Edit

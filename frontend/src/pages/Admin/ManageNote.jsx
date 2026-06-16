@@ -2,9 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import logo from "../../assets/logo.png";
 import api from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const ManageNotes = () => {
   const [notes, setNotes] = useState([])
+  const [editNoteId, setEditNoteId] = useState(null);
+  const [updatedTitle, setUpdatedTitle] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getAllNotes = async () => {
@@ -27,9 +33,50 @@ const ManageNotes = () => {
 
       setNotes((prev) => prev.filter((note) => note._id !== id))
     } catch (error) {
-      console.log("delete note error", error)
+      // console.log("delete note error", error.message)
+      console.log(error.message)
     }
   }
+
+
+
+  const handleEdit = (note) => {
+    setEditNoteId(note._id);
+    setUpdatedTitle(note.title);
+    setIsEditing(true);
+  };
+
+
+  const handleUpdate = async () => {
+    try {
+      const res = await api.put(`/note/${editNoteId}`, {
+        title: updatedTitle,
+
+      });
+
+      setNotes((prev) =>
+        prev.map((note) =>
+          note._id === editNoteId
+            ? {
+              ...note,
+              title: updatedTitle,
+
+            }
+            : note
+        )
+      );
+
+      setIsEditing(false);
+      setEditNoteId(null);
+      setUpdatedTitle("");
+
+
+
+    } catch (error) {
+      console.log("update note error", error);
+    }
+  };
+
 
   return (
     <>
@@ -62,6 +109,44 @@ const ManageNotes = () => {
           </h1>
         </div>
 
+        {
+          isEditing && (
+            <div className="max-w-2xl mx-auto mb-6 bg-slate-900 border border-purple-500 rounded-xl p-4">
+              <h2 className="text-white text-lg mb-3">
+                Edit Note
+              </h2>
+
+              <input
+                type="text"
+                value={updatedTitle}
+                onChange={(e) => setUpdatedTitle(e.target.value)}
+                className="w-full p-3 rounded-lg bg-slate-800 text-white border border-gray-600"
+              />
+             
+
+              <div className="flex gap-3 mt-4">
+                <button
+                  onClick={handleUpdate}
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
+                >
+                  Update
+                </button>
+
+                <button
+                  onClick={() => {
+                    setIsEditing(false);
+                    setEditNoteId(null);
+                    setUpdatedTitle("");
+                   
+                  }}
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )
+        }
 
         <div className="space-y-4 max-w-6xl mx-auto">
           {notes.map((note) => (
@@ -95,7 +180,8 @@ const ManageNotes = () => {
 
                 <div>
                   <h2 className="text-base sm:text-lg lg:text-xl font-semibold text-white break-words">
-                   {note.title} - {note.unitId?.unitName}
+                    {/* {note.title} - {note.unitId?.unitName} */}
+                    {note.title}
                   </h2>
 
                   {/* <p className="text-sm text-purple-300">
@@ -110,6 +196,7 @@ const ManageNotes = () => {
 
               <div className="flex gap-2 w-full lg:w-auto">
                 <button
+                onClick={() => handleEdit(note)}
                   className="
                         flex-1 lg:flex-none
                         flex items-center justify-center gap-2

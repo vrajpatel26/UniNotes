@@ -7,6 +7,10 @@ import logo from "../../assets/logo.png";
 
 const ManageSubject = () => {
   const [subjects, setSubjects] = useState([]);
+  const [editSubjectId, setEditSubjectId] = useState(null);
+  const [updatedSubjectName, setUpdatedSubjectName] = useState("");
+  const [updatedSubjectCode, setUpdatedSubjectCode] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,9 +41,48 @@ const ManageSubject = () => {
       setSubjects((prev) => prev.filter((subject) => subject._id !== id))
     } catch (error) {
 
-      console.log("delete subject error",error)
+      console.log("delete subject error", error)
     }
   }
+
+
+  const handleEdit = (subject) => {
+    setEditSubjectId(subject._id);
+    setUpdatedSubjectName(subject.subjectName);
+    setUpdatedSubjectCode(subject.subjectCode);
+    setIsEditing(true);
+  };
+
+
+  const handleUpdate = async () => {
+    try {
+      const res = await api.put(`/subject/${editSubjectId}`, {
+        subjectName: updatedSubjectName,
+        subjectCode: updatedSubjectCode
+      });
+
+      setSubjects((prev) =>
+        prev.map((subject) =>
+          subject._id === editSubjectId
+            ? {
+              ...subject,
+              subjectName: updatedSubjectName,
+              subjectCode: updatedSubjectCode
+            }
+            : subject
+        )
+      );
+
+      setIsEditing(false);
+      setEditSubjectId(null);
+      setUpdatedSubjectName("");
+      setUpdatedSubjectCode("");
+
+
+    } catch (error) {
+      console.log("update subject error", error);
+    }
+  };
 
   return (
     <>
@@ -72,7 +115,49 @@ const ManageSubject = () => {
           </h1>
         </div>
 
+        {
+          isEditing && (
+            <div className="max-w-2xl mx-auto mb-6 bg-slate-900 border border-purple-500 rounded-xl p-4">
+              <h2 className="text-white text-lg mb-3">
+                Edit Subject
+              </h2>
 
+              <input
+                type="text"
+                value={updatedSubjectName}
+                onChange={(e) => setUpdatedSubjectName(e.target.value)}
+                className="w-full p-3 rounded-lg bg-slate-800 text-white border border-gray-600"
+              />
+              <input
+                type="text"
+                value={updatedSubjectCode}
+                onChange={(e) => setUpdatedSubjectCode(e.target.value)}
+                className="w-full p-3 rounded-lg bg-slate-800 text-white border border-gray-600"
+              />
+
+              <div className="flex gap-3 mt-4">
+                <button
+                  onClick={handleUpdate}
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
+                >
+                  Update
+                </button>
+
+                <button
+                  onClick={() => {
+                    setIsEditing(false);
+                    setEditSubjectId(null);
+                    setUpdatedSubjectName("");
+                    setUpdatedSubjectCode("")
+                  }}
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )
+        }
         <div className="space-y-4 max-w-6xl mx-auto">
           {subjects.map((subject) => (
             <div
@@ -114,15 +199,9 @@ const ManageSubject = () => {
 
               <div className="flex gap-2 w-full lg:w-auto">
                 <button
-                  className="
-                    flex-1 lg:flex-none
-                    flex items-center justify-center gap-2
-                    rounded-lg bg-purple-600
-                    px-4 py-2
-                    text-white
-                    hover:bg-purple-800
-                    transition
-                  "
+                  onClick={() => handleEdit(subject)}
+                  className="flex-1 lg:flex-none flex items-center justify-center gap-2 rounded-lg bg-purple-600 px-4 py-2
+                 text-white hover:bg-purple-800 transition"
                 >
                   <FiEdit />
                   Edit

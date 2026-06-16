@@ -7,7 +7,11 @@ const noteSchema = new mongoose.Schema({
     },
     fileUrl: {
         type: String,
-        required:true
+        required: true
+    },
+    publicId: {
+        type: String,
+        required: true
     },
     unitId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -18,7 +22,8 @@ const noteSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
-    }
+    },
+
 },
     {
         timestamps: true

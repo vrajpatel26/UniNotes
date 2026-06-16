@@ -86,18 +86,21 @@ export const updateSubject = async (req, res) => {
     try {
         const { id } = req.params
 
-        const { subjectName } = req.body
+        const { subjectName, subjectCode } = req.body
 
         const updatedSubject = await Subject.findByIdAndUpdate(
             id,
-            { subjectName },
+            {
+                subjectName,
+                subjectCode
+            },
             { new: true }
         )
 
         return res.status(200).json(updatedSubject)
 
     } catch (error) {
-        return req.status(500).json({ message: `update subject error ${error}` })
+        return res.status(500).json({ message: `update subject error ${error}` })
     }
 }
 
@@ -107,7 +110,7 @@ export const deleteSubject = async (req, res) => {
     try {
         const { id } = req.params
 
-        
+
         const units = await Unit.find({
             subjectId: id
         });

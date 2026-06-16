@@ -72,11 +72,14 @@ export const updateUnit = async (req, res) => {
     try {
         const { id } = req.params
 
-        const { unitName } = req.body
+        const { unitName, unitNumber } = req.body
 
         const updatedUnit = await Unit.findByIdAndUpdate(
             id,
-            { unitName },
+            {
+                unitName,
+                unitNumber
+            },
             { new: true }
         )
 
