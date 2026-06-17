@@ -14,6 +14,7 @@ import semesterRouter from "./routes/semester.route.js";
 import subjectRouter from "./routes/subject.route.js";
 import unitRouter from "./routes/unit.route.js";
 import noteRouter from "./routes/note.route.js";
+import dashboardRouter from "./routes/dashboard.route.js";
 
 const PORT = process.env.PORT || 5000
 
@@ -34,7 +35,7 @@ app.use("/api/semester",semesterRouter)
 app.use("/api/subject",subjectRouter)
 app.use("/api/unit",unitRouter)
 app.use("/api/note",noteRouter)
-
+app.use("/api/dashboard",dashboardRouter)
 
 
 app.listen(PORT,()=>{

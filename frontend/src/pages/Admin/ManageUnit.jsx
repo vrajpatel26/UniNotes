@@ -3,6 +3,10 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import logo from "../../assets/logo.png";
 import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
+
+
 
 const ManageUnit = () => {
   const [units, setUnits] = useState([])
@@ -29,11 +33,29 @@ const ManageUnit = () => {
 
   const handleDelete = async (id) => {
     try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to recover this unit!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "Cancel"
+      })
+
+      if (!result.isConfirmed) {
+        return
+      }
+
       const res = await api.delete(`/unit/${id}`)
 
       setUnits((prev) => prev.filter((unit) => unit._id !== id))
+
+      toast.success("Unit deleted successfully");
+
     } catch (error) {
       console.log("delete unit error", error)
+      toast.error("Failed to delete unit");
+
     }
   }
 
@@ -59,6 +81,9 @@ const ManageUnit = () => {
         )
       )
 
+      toast.success("Unit updated successfully");
+
+
       setIsEditing(false)
       setEditUnitId(null)
       setUpdatedUnitName("")
@@ -66,6 +91,10 @@ const ManageUnit = () => {
 
     } catch (error) {
       console.log("update unit error", error)
+      toast.error(
+        error.response?.data?.message || "Something went wrong"
+      );
+
     }
   }
 

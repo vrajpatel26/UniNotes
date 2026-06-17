@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import logo from "../assets/logo.png"
 import api from '../services/api.js'
 import { useNavigate } from 'react-router-dom'
+import toast from "react-hot-toast";
 
 
 const Login = () => {
@@ -26,13 +27,19 @@ const Login = () => {
                 JSON.stringify(response.data.user)
             )
 
+            toast.success("Login successful");
+            
+            navigate("/")
+
             setEmail("")
             setPassword("")
 
         } catch (error) {
 
             console.log(error.response?.data);
-
+            toast.error(
+                error.response?.data?.message || "Something went wrong"
+            );
         }
 
     }
@@ -98,6 +105,7 @@ const Login = () => {
 
                             <div className='flex items-center justify-center pt-4'>
                                 <button
+                                
                                     type='submit'
                                     className='bg-purple-800 h-[40px] w-full rounded text-gray-300 hover:bg-purple-700 transition-all duration-300'
                                 >

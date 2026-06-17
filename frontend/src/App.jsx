@@ -20,10 +20,31 @@ import HowItWorks from './pages/HowItWorks'
 import ManageSubject from './pages/Admin/ManageSubject'
 import ManageUnit from './pages/Admin/ManageUnit'
 import ManageNote from './pages/Admin/ManageNote'
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
    return (
       <>
+         <Toaster
+            position="top-right"
+            toastOptions={{
+               style: {
+                  background: "#060b1f",
+                  color: "#ffffff",
+                  border: "1px solid #a855f7",
+                  borderRadius: "12px",
+                  padding: "12px 16px",
+               },
+               success: {
+                  duration: 3000,
+               },
+               error: {
+                  duration: 4000,
+               },
+            }}
+         />
+
+
          <Routes>
 
             <Route element={<MainLayout />}>
@@ -76,7 +97,7 @@ const App = () => {
                   <AdminNote />
                </ProtectedRoute>} />
 
-                <Route path='/admin/manage-note'
+            <Route path='/admin/manage-note'
                element={<ProtectedRoute>
                   <ManageNote />
                </ProtectedRoute>}

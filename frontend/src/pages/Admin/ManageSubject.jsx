@@ -3,6 +3,8 @@ import api from "../../services/api";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 
 const ManageSubject = () => {
@@ -36,12 +38,33 @@ const ManageSubject = () => {
 
   const handleDelete = async (id) => {
     try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to recover this subject!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "Cancel"
+      })
+
+      if (!result.isConfirmed) {
+        return
+      }
+
       const res = await api.delete(`/subject/${id}`)
 
       setSubjects((prev) => prev.filter((subject) => subject._id !== id))
+
+
+      toast.success("Subject deleted successfully");
+
+
+
     } catch (error) {
 
       console.log("delete subject error", error)
+      toast.error("Failed to delete subject");
+
     }
   }
 
@@ -72,6 +95,7 @@ const ManageSubject = () => {
             : subject
         )
       );
+      toast.success("Subject updated successfully");
 
       setIsEditing(false);
       setEditSubjectId(null);
@@ -80,7 +104,11 @@ const ManageSubject = () => {
 
 
     } catch (error) {
+
       console.log("update subject error", error);
+      toast.error(
+        error.response?.data?.message || "Something went wrong"
+      );
     }
   };
 

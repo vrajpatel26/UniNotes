@@ -4,6 +4,7 @@ import logo from "../../assets/logo.png"
 import { useEffect } from 'react'
 import api from '../../services/api'
 import { useNavigate } from 'react-router-dom'
+import toast from "react-hot-toast";
 
 const AdminNote = () => {
 
@@ -42,6 +43,8 @@ const AdminNote = () => {
       const res = await api.post("/note", formData)
 
       console.log(res.data)
+      toast.success("Note created successfully");
+
 
       setTitle("")
       setPdf(null)
@@ -56,6 +59,10 @@ const AdminNote = () => {
 
     } catch (error) {
       console.log(error.response.data, error)
+      toast.error(
+        error.response?.data?.message || "Something went wrong"
+      );
+
     }
   }
 

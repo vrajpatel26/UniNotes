@@ -3,6 +3,9 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import logo from "../../assets/logo.png";
 import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
+
 
 const ManageNotes = () => {
   const [notes, setNotes] = useState([])
@@ -29,12 +32,31 @@ const ManageNotes = () => {
 
   const handleDelete = async (id) => {
     try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to recover this note!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "Cancel"
+      })
+
+      if (!result.isConfirmed) {
+        return
+      }
       const res = await api.delete(`/note/${id}`)
 
       setNotes((prev) => prev.filter((note) => note._id !== id))
+
+      toast.success("Subject deleted successfully");
+
+
     } catch (error) {
-      // console.log("delete note error", error.message)
-      console.log(error.message)
+      console.log("delete note error", error.message)
+      toast.error(
+        error.response?.data?.message || "Something went wrong"
+      );
+
     }
   }
 
@@ -65,6 +87,7 @@ const ManageNotes = () => {
             : note
         )
       );
+      toast.success("Note updated successfully");
 
       setIsEditing(false);
       setEditNoteId(null);
@@ -74,6 +97,8 @@ const ManageNotes = () => {
 
     } catch (error) {
       console.log("update note error", error);
+      toast.error("Failed to update note");
+
     }
   };
 
@@ -122,7 +147,7 @@ const ManageNotes = () => {
                 onChange={(e) => setUpdatedTitle(e.target.value)}
                 className="w-full p-3 rounded-lg bg-slate-800 text-white border border-gray-600"
               />
-             
+
 
               <div className="flex gap-3 mt-4">
                 <button
@@ -137,7 +162,7 @@ const ManageNotes = () => {
                     setIsEditing(false);
                     setEditNoteId(null);
                     setUpdatedTitle("");
-                   
+
                   }}
                   className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg"
                 >
@@ -196,7 +221,7 @@ const ManageNotes = () => {
 
               <div className="flex gap-2 w-full lg:w-auto">
                 <button
-                onClick={() => handleEdit(note)}
+                  onClick={() => handleEdit(note)}
                   className="
                         flex-1 lg:flex-none
                         flex items-center justify-center gap-2

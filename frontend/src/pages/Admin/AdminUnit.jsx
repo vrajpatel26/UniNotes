@@ -2,9 +2,9 @@ import React from 'react'
 import { useState } from 'react'
 import api from '../../services/api'
 import logo from "../../assets/logo.png"
-
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import toast from "react-hot-toast";
 
 const AdminUnit = () => {
 
@@ -35,6 +35,8 @@ const AdminUnit = () => {
       })
 
       console.log(res.data);
+      toast.success("Unit created successfully");
+
 
       setUnitNumber("")
       setUnitName("")
@@ -45,6 +47,10 @@ const AdminUnit = () => {
 
     } catch (error) {
       console.log(error.response.data)
+      toast.error(
+        error.response?.data?.message || "Something went wrong"
+      );
+
     }
   }
 

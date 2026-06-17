@@ -182,9 +182,43 @@ import {
 import { FiUpload } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import logo from "../../assets/logo.png"
+import { HiOutlineSparkles } from "react-icons/hi";
+import { RiBookShelfLine } from "react-icons/ri";
+import { IoBookSharp } from "react-icons/io5";
+import { TfiWrite } from "react-icons/tfi";
+import { HiOutlineSquare3Stack3D } from "react-icons/hi2";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { LuGraduationCap } from "react-icons/lu";
+import { FiBookOpen } from "react-icons/fi";
+import { CgNotes } from "react-icons/cg";
+import { AiOutlineFilePdf } from "react-icons/ai";
+import { FaArrowDown } from "react-icons/fa";
+import { useState } from "react";
+import { useEffect } from "react";
+import api from "../../services/api";
 
 const Admin = () => {
+    const [stats, setStats] = useState({
+        totalSubjects: 0,
+        totalUnits: 0,
+        totalNotes: 0
+    })
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const getStats = async () => {
+            try {
+                const result = await api.get("/dashboard/stats") 
+
+                setStats(result.data)
+            } catch (error) {
+                console.log("get stats error",error)
+            }
+        }
+        getStats()
+    }, [])
+
 
     return (
         <>
@@ -206,7 +240,50 @@ const Admin = () => {
 
             <section className="min-h-screen bg-slate-950 overflow-hidden">
 
-                <div className="max-w-8xl mx-auto px-6 md:px-10 lg:px-16 py-20">
+                <div className="max-w-8xl mx-auto px-6 md:px-10 lg:px-16 py-10">
+
+
+                    <div className='flex flex-col lg:flex-row gap-5 items-center lg:justify-center pb-12' >
+
+                        <div className='h-[150px] w-full max-w-[200px] rounded-xl border border-gray-700 text-gray-300 px-[10px] py-[10px] flex gap-[5px] items-center justify-center flex-col hover:border-purple-500 hover:-translate-y-2 duration-300'>
+                            <LuGraduationCap className='h-[40px] w-[40px] text-purple-400 border border-purple-500 rounded-md p-[5px]' />
+                            <p className='text-[18px] font-semibold text-center text-gray-300'>8</p>
+                            <p className='text-[14px] text-center text-gray-400'>SEMESTERS
+                            </p>
+                        </div>
+
+
+
+                        <div className='h-[150px] w-full max-w-[200px] rounded-xl border border-gray-700 text-gray-300 px-[10px] py-[10px] flex gap-[5px] items-center justify-center flex-col hover:border-purple-500 hover:-translate-y-2 duration-300'>
+                            <FiBookOpen className='h-[40px] w-[40px] text-purple-400 border border-purple-500 rounded-md p-[5px]' />
+                            <p className='text-[18px] font-semibold text-center text-gray-300'>{stats.totalSubjects}</p>
+                            <p className='text-[14px] text-center text-gray-400'>SUBJECTS
+                            </p>
+                        </div>
+
+
+
+
+
+                        <div className='h-[150px] w-full max-w-[200px] rounded-xl border border-gray-700 text-gray-300 px-[10px] py-[10px] flex gap-[5px] items-center justify-center flex-col hover:border-purple-500 hover:-translate-y-2 duration-300'>
+                            <HiOutlineSquare3Stack3D className='h-[40px] w-[40px] text-purple-400 border border-purple-500 rounded-md p-[5px]' />
+                            <p className='text-[18px] font-semibold text-center text-gray-300'>{stats.totalUnits}</p>
+                            <p className='text-[14px] text-center text-gray-400'>UNITS
+                            </p>
+                        </div>
+
+
+
+
+                        <div className='h-[150px] w-full max-w-[200px] rounded-xl border border-gray-700 text-gray-300 px-[10px] py-[10px] flex gap-[5px] items-center justify-center flex-col hover:border-purple-500 hover:-translate-y-2 duration-300'>
+                            <CgNotes className='h-[40px] w-[40px] text-purple-400 border border-purple-500 rounded-md p-[5px]' />
+                            <p className='text-[18px] font-semibold text-center text-gray-300'>{stats.totalNotes}</p>
+                            <p className='text-[14px] text-center text-gray-400'>NOTES
+                            </p>
+                        </div>
+                    </div>
+
+
                     <div className="flex flex-col lg:flex-row gap-14 items-center">
 
                         {/* Left Side */}

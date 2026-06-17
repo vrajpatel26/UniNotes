@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import logo from "../assets/logo.png"
 import api from '../services/api.js'
 import { useNavigate } from 'react-router-dom'
+import toast from "react-hot-toast";
 
 
 const Signup = () => {
@@ -23,13 +24,20 @@ const Signup = () => {
 
             // console.log(response.data);
 
+            toast.success("Account created successful");
+
+            navigate("/login")
+
             setName("")
             setEmail("")
             setPassword("")
-            alert("Account created successfully")
+
 
         } catch (error) {
             console.log(error.response?.data);
+            toast.error(
+                error.response?.data?.message || "Something went wrong"
+            );
         }
     }
     return (
@@ -108,6 +116,7 @@ const Signup = () => {
 
                             <div className='flex items-center justify-center pt-4'>
                                 <button
+                                    
                                     type='submit'
                                     className='bg-purple-800 h-[40px] w-full rounded text-gray-300 hover:bg-purple-700 transition-all duration-300'
                                 >

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import api from '../../services/api'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import toast from "react-hot-toast";
 
 const AdminSubject = () => {
 
@@ -30,6 +31,8 @@ const AdminSubject = () => {
             })
 
             console.log(res.data);
+            toast.success("Subject created successfully");
+
 
             setSubjectName("")
             setSubjectCode("")
@@ -37,6 +40,10 @@ const AdminSubject = () => {
 
         } catch (error) {
             console.log(error.response.data)
+            toast.error(
+                error.response?.data?.message || "Something went wrong"
+            );
+
         }
     }
 
