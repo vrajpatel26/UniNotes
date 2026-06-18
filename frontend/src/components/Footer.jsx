@@ -11,7 +11,6 @@ const Footer = () => {
       <div className='w-full bg-slate-950 border-t border-gray-800 flex justify-center py-10 px-4'>
         <div className='flex flex-col md:flex-row items-start md:items-center justify-between w-full max-w-6xl gap-10'>
 
-          {/* Logo & Description */}
           <div className='w-full md:w-1/2 flex flex-col'>
             <div
               className='flex items-center cursor-pointer'
@@ -32,7 +31,7 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Quick Links */}
+          
           <div className='w-full md:w-auto flex flex-col gap-3'>
             <h2 className='font-semibold text-white'>Quick Links</h2>
 
@@ -40,7 +39,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/"
-                  onClick={() => window.scrollTo(0, 0)}
+                  
                   className='hover:text-purple-400 transition-all duration-300'
                 >
                   Home
@@ -50,7 +49,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/howitworks"
-                  onClick={() => window.scrollTo(0, 0)}
+           
                   className='hover:text-purple-400 transition-all duration-300'
                 >
                   How It Works
@@ -60,7 +59,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/semester"
-                  onClick={() => window.scrollTo(0, 0)}
+                 
                   className='hover:text-purple-400 transition-all duration-300'
                 >
                   Notes

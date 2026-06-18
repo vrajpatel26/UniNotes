@@ -78,11 +78,10 @@ const AdminSubject = () => {
                     </div>
                 </div>
             </div>
-            <div className='bg-slate-950 min-h-screen w-full flex flex-col items-center py-[30px] gap-[40px]'>
 
+            <div className='bg-slate-950 min-h-screen w-full flex flex-col items-center pt-[150px] lg:py-[30px] px-[40px] lg:px-0 gap-[40px]'>
 
-
-                <div className='bg-slate-900  w-[30%] rounded-[20px] py-[30px] '>
+                <div className='bg-slate-900 w-full lg:w-[30%] rounded-[20px] py-[30px] '>
                     <div className='flex flex-col items-center justify-center'>
                         <h1 className='text-purple-800 text-[40px] font-bold font-serif'>Create Subject </h1>
 

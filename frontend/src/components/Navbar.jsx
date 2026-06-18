@@ -88,6 +88,7 @@ const Navbar = () => {
                     </li>
                     <li className='text-[20px] font-semibold cursor-pointer hover:text-purple-400 transition-all duration-300'>
                         <NavLink
+
                             to="/howitworks"
                             className={({ isActive }) =>
                                 isActive
@@ -103,12 +104,20 @@ const Navbar = () => {
 
 
                 {user?.role === "user" && (
-                    <button
-                        onClick={() => handleLogout()}
-                        className='hidden md:block h-[40px] px-5 bg-purple-900 hover:bg-purple-800 transition-all duration-300 text-gray-300 rounded-md'
-                    >
-                        Log Out
-                    </button>
+                    <div className='hidden md:flex gap-5'>
+                        <button
+                            onClick={() => navigate("/profile")}
+                            className='hidden md:block h-[40px] px-5 bg-purple-700 hover:bg-purple-600 transition-all duration-300 text-gray-300 rounded-md font-semibold'
+                        >
+                            Profile
+                        </button>
+                        <button
+                            onClick={() => handleLogout()}
+                            className='hidden md:block h-[40px] px-5 bg-purple-700 hover:bg-purple-600 transition-all duration-300 text-gray-300 rounded-md font-semibold'
+                        >
+                            Log Out
+                        </button>
+                    </div>
                 )}
 
                 {!user && (

@@ -21,6 +21,7 @@ import ManageSubject from './pages/Admin/ManageSubject'
 import ManageUnit from './pages/Admin/ManageUnit'
 import ManageNote from './pages/Admin/ManageNote'
 import { Toaster } from "react-hot-toast";
+import Profile from './pages/Profile'
 
 const App = () => {
    return (
@@ -55,6 +56,7 @@ const App = () => {
                <Route path="/note/:unitId" element={<Note />} />
                <Route path='/about' element={<About />} />
                <Route path='/howitworks' element={<HowItWorks />} />
+               <Route path='/profile' element={<Profile />} />
             </Route>
 
             <Route path="/login" element={<Login />} />

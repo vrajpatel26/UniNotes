@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import api from '../services/api'
 import { FiFileText } from "react-icons/fi";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -11,6 +11,8 @@ import { MdGridView } from "react-icons/md";
 const Note = () => {
 
     const [notes, setNotes] = useState([])
+
+    const navigate = useNavigate()
 
     const { unitId } = useParams()
 
@@ -29,23 +31,7 @@ const Note = () => {
     }, [unitId])
 
     return (
-        // <div className='min-h-screen w-full py-[30px] bg-slate-800 text-white'>
-        //     <div className='flex gap-[20px] '>
-        //         {notes.map((note) => (
-        //             <div
-        //                 className='h-[100px] flex justify-center items-center w-[300px] bg-slate-700 rounded-[16px] text-white cursor-pointer'
-        //                 key={note._id}
-        //                 onClick={() => window.open(note.fileUrl, "_blank")}
-        //             >
-        //                 title : {note.title}
-        //             </div>
-        //         ))
-        //         }
-        //     </div>
-        // </div>
-
-
-
+      
         <div className='w-full bg-slate-950 min-h-screen flex flex-col  gap-[50px] pb-6'>
 
             <div className='text-white flex flex-col items-center p-5'>
@@ -55,7 +41,7 @@ const Note = () => {
 
             </div>
             <div
-
+                onClick={()=>navigate(-1)}
                 className='flex justify-center items-center gap-[10px] border border-gray-800 w-[200px] rounded-[20px] ml-[50px] lg:ml-[180px] p-2 cursor-pointer hover:border-gray-500'>
                 <FaArrowLeftLong className='text-gray-400  ' />
                 <h1 className='text-[15px] text-gray-400 font-semibold' >Back to Unit</h1>
@@ -65,7 +51,7 @@ const Note = () => {
             {notes.map((note) => (
                 <div
                     key={note._id}
-                    onClick={() => navigate(`/note/${unit._id}`)}
+                    // onClick={() => navigate(`/note/${unit._id}`)}
                     className="w-[70%] lg:w-[70%]  ml-[50px] lg:ml-[180px] bg-[#060b1f] border border-[#1b2440] rounded-3xl px-6 lg:py-5 py-10 flex lg:flex-row flex-col items-center justify-center lg:justify-between shadow-lg relative hover:border-purple-500 hover:-translate-y-2 duration-300">
 
 

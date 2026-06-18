@@ -31,23 +31,6 @@ const Unit = () => {
     }, [subjectId])
 
     return (
-        // <div className='min-h-screen w-full py-[30px] bg-slate-800 text-white'>
-        //     <div className='flex gap-[20px] '>
-        //         {units.map((unit) => (
-        //             <div
-        //                 className='h-[100px] flex justify-center items-center w-[300px] bg-slate-700 rounded-[16px] text-white cursor-pointer'
-        //                 key={unit._id}
-        //                 onClick={() => navigate(`/note/${unit._id}`)}
-
-        //             >
-        //                 Unit {unit.unitNumber} : {unit.unitName}
-        //             </div>
-        //         ))
-        //         }
-        //     </div>
-        // </div>
-
-
 
         <div className='w-full bg-slate-950 min-h-screen flex flex-col  gap-[50px] pb-6'>
             <div className='text-white flex flex-col items-center p-5 '>
@@ -57,7 +40,7 @@ const Unit = () => {
 
             </div>
             <div
-                // onClick={() => navigate(`/subject/`)}
+                onClick={() => navigate(-1)}
                 className='flex justify-center items-center gap-[10px] border border-gray-800 w-[200px] rounded-[20px] ml-[50px] lg:ml-[180px] p-2 cursor-pointer hover:border-gray-500'>
                 <FaArrowLeftLong className='text-gray-400  ' />
                 <h1 className='text-[15px] text-gray-400 font-semibold' >Back to Course</h1>

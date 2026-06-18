@@ -310,12 +310,7 @@ const Admin = () => {
                                 across every semester.
                             </p>
 
-                            <button
-                                onClick={() => navigate("/login")}
-                                className="mt-10 flex items-center gap-3 px-8 py-4 rounded-2xl bg-purple-700 text-white font-semibold text-lg hover:scale-105 transition-all duration-300">
-                                Admin Login
-                                <FaArrowRight />
-                            </button>
+                        
                         </div>
 
                         {/* Right Side */}

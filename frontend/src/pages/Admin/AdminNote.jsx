@@ -142,10 +142,10 @@ const AdminNote = () => {
       </div>
 
 
-      <div className='bg-slate-950 min-h-screen w-full flex flex-col items-center py-[30px] gap-[40px]'>
+      <div className='bg-slate-950 min-h-screen w-full flex flex-col items-center lg:py-[30px] pt-[150px] px-[40px] lg:px-0 gap-[40px]'>
 
 
-        <div className='bg-slate-900  w-[30%] rounded-[20px] py-[30px] '>
+        <div className='bg-slate-900  w-full lg:w-[30%]  rounded-[20px] py-[30px] '>
           <div className='flex flex-col items-center justify-center'>
             <h1 className='text-purple-800 text-[40px] font-bold font-serif'>Create Note </h1>
 
@@ -235,12 +235,12 @@ const AdminNote = () => {
 
 
               <div className='flex flex-col justify-start gap-[5px]'>
-                <label className='text-gray-300 text-[15px]'>select PDF</label>
+                <label className='text-gray-300 text-[15px]'>Select PDF</label>
                 <input
                   type='file'
                   accept=".pdf"
                   onChange={(e) => setPdf(e.target.files[0])}
-                  className='w-[100%] h-[40px] px-3 bg-slate-950  text-gray-300 rounded border  hover:border-purple-800 outline-none border-slate-700' />
+                  className='w-[100%] flex pt-1 h-[40px] px-3 bg-slate-950  text-gray-300 rounded border  hover:border-purple-800 outline-none border-slate-700' />
               </div>
 
 
