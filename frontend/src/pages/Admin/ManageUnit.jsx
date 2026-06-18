@@ -14,6 +14,7 @@ const ManageUnit = () => {
   const [updatedUnitName, setUpdatedUnitName] = useState("")
   const [updatedUnitNumber, setUpdatedUnitNumber] = useState("")
   const [isEditing, setIsEditing] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const navigate = useNavigate()
 
@@ -69,6 +70,8 @@ const ManageUnit = () => {
 
   const handleUpdate = async () => {
     try {
+      setIsLoading(true)
+
       const res = await api.put(`/unit/${editUnitId}`, {
         unitName: updatedUnitName,
         unitNumber: Number(updatedUnitNumber)
@@ -88,12 +91,14 @@ const ManageUnit = () => {
       setEditUnitId(null)
       setUpdatedUnitName("")
       setUpdatedUnitNumber("")
+      setIsLoading(false)
 
     } catch (error) {
       console.log("update unit error", error)
       toast.error(
         error.response?.data?.message || "Something went wrong"
       );
+      setIsLoading(false)
 
     }
   }
@@ -154,8 +159,9 @@ const ManageUnit = () => {
                 <button
                   onClick={handleUpdate}
                   className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
+                  disabled={isLoading}
                 >
-                  Update
+                 {isLoading ? "Updating..." : "Update"}
                 </button>
 
                 <button

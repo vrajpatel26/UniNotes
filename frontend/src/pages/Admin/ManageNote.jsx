@@ -12,6 +12,7 @@ const ManageNotes = () => {
   const [editNoteId, setEditNoteId] = useState(null);
   const [updatedTitle, setUpdatedTitle] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading , setIsLoading] = useState(false)
 
   const navigate = useNavigate()
 
@@ -71,6 +72,7 @@ const ManageNotes = () => {
 
   const handleUpdate = async () => {
     try {
+      setIsLoading(true)
       const res = await api.put(`/note/${editNoteId}`, {
         title: updatedTitle,
 
@@ -92,12 +94,15 @@ const ManageNotes = () => {
       setIsEditing(false);
       setEditNoteId(null);
       setUpdatedTitle("");
-
+      setIsLoading(false)
 
 
     } catch (error) {
       console.log("update note error", error);
-      toast.error("Failed to update note");
+       toast.error(
+        error.response?.data?.message || "Something went wrong"
+      );
+      setIsLoading(false)
 
     }
   };
@@ -153,8 +158,9 @@ const ManageNotes = () => {
                 <button
                   onClick={handleUpdate}
                   className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
+                  disabled={isLoading}
                 >
-                  Update
+                  {isLoading ? "Updating..." : "Update"}
                 </button>
 
                 <button

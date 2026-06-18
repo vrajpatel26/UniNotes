@@ -13,7 +13,10 @@ const ManageSubject = () => {
   const [updatedSubjectName, setUpdatedSubjectName] = useState("");
   const [updatedSubjectCode, setUpdatedSubjectCode] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
+
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchAllSubject = async () => {
@@ -79,6 +82,9 @@ const ManageSubject = () => {
 
   const handleUpdate = async () => {
     try {
+
+      setIsLoading(true)
+
       const res = await api.put(`/subject/${editSubjectId}`, {
         subjectName: updatedSubjectName,
         subjectCode: updatedSubjectCode
@@ -101,7 +107,7 @@ const ManageSubject = () => {
       setEditSubjectId(null);
       setUpdatedSubjectName("");
       setUpdatedSubjectCode("");
-
+      setIsLoading(false)
 
     } catch (error) {
 
@@ -109,6 +115,8 @@ const ManageSubject = () => {
       toast.error(
         error.response?.data?.message || "Something went wrong"
       );
+      setIsLoading(false)
+
     }
   };
 
@@ -165,10 +173,12 @@ const ManageSubject = () => {
 
               <div className="flex gap-3 mt-4">
                 <button
+
                   onClick={handleUpdate}
                   className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
+                  disabled={isLoading}
                 >
-                  Update
+                  {isLoading ? "Updating..." : "Update"}
                 </button>
 
                 <button

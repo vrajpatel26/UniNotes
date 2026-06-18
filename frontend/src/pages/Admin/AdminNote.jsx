@@ -23,12 +23,15 @@ const AdminNote = () => {
   const [subjects, setSubjects] = useState([])
   const [units, setUnits] = useState([])
 
+  const [isLoading, setIsLoading] = useState(false)
   // const [uploadedBy, setUploadedBy] = useState("")
 
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
+      setIsLoading(true)
+
       const formData = new FormData()
 
       formData.append("title", title)
@@ -56,12 +59,15 @@ const AdminNote = () => {
       setSubjects([])
       setUnits([])
 
+      setIsLoading(false)
+
 
     } catch (error) {
       console.log(error.response.data, error)
       toast.error(
         error.response?.data?.message || "Something went wrong"
       );
+      setIsLoading(false)
 
     }
   }
@@ -250,8 +256,10 @@ const AdminNote = () => {
               <div className='flex items-center justify-center pt-[20px]' >
                 <button
                   type='submit'
-                  className='bg-purple-800 h-[40px] w-full rounded text-gray-300 hover:bg-purple-700 '>
-                  Add
+                  className='bg-purple-800 h-[40px] w-full rounded text-gray-300 hover:bg-purple-700 '
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Uploading PDF..." : "Upload Note"}
                 </button>
               </div>
 

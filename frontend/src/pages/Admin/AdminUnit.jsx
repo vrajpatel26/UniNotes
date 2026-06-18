@@ -16,12 +16,12 @@ const AdminUnit = () => {
   const [semesterId, setSemesterId] = useState("")
   const [semesters, setSemesters] = useState([])
   const [subjects, setSubjects] = useState([])
-
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-
+      setIsLoading(true)
       console.log({
         unitNumber,
         unitName,
@@ -43,13 +43,14 @@ const AdminUnit = () => {
       setSubjectId("")
       setSemesterId("")
       setSubjects([])
-
+      setIsLoading(false)
 
     } catch (error) {
       console.log(error.response.data)
       toast.error(
         error.response?.data?.message || "Something went wrong"
       );
+      setIsLoading(false)
 
     }
   }
@@ -185,11 +186,12 @@ const AdminUnit = () => {
               <div className='flex items-center justify-center pt-[20px]' >
                 <button
                   type='submit'
-                  className='bg-purple-800 h-[40px] w-full rounded text-gray-300 hover:bg-purple-700 '>
-                  Add
+                  className='bg-purple-800 h-[40px] w-full rounded text-gray-300 hover:bg-purple-700 '
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Creating Unit..." : "Create Unit"}
                 </button>
               </div>
-
 
             </form>
           </div>

@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
+    const [show, setShow] = useState(false)
 
     const navigate = useNavigate()
 
@@ -15,6 +17,7 @@ const Login = () => {
         e.preventDefault()
 
         try {
+            setIsLoading(true)
             const response = await api.post("/auth/login", {
                 email,
                 password
@@ -28,11 +31,13 @@ const Login = () => {
             )
 
             toast.success("Login successful");
-            
-            navigate("/")
+
 
             setEmail("")
             setPassword("")
+            setIsLoading(false)
+
+            navigate("/")
 
         } catch (error) {
 
@@ -40,6 +45,7 @@ const Login = () => {
             toast.error(
                 error.response?.data?.message || "Something went wrong"
             );
+            setIsLoading(false)
         }
 
     }
@@ -94,22 +100,31 @@ const Login = () => {
                                 <label className='text-gray-300 text-[15px]'>
                                     Password
                                 </label>
-
-                                <input
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className='w-full h-[40px] px-3 bg-slate-950 text-gray-300 rounded border hover:border-purple-800 outline-none border-slate-700'
-                                />
+                                <div className='relative '>
+                                    <input
+                                        type={show ? "text" : "password"}
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className='w-full h-[40px] px-3 bg-slate-950 text-gray-300 rounded border hover:border-purple-800 outline-none border-slate-700'
+                                    />
+                                    <span
+                                        className='absolute top-[9px] lg:top-[5px] right-[10px] text-[15px] sm:text-[19px] text-purple-500 cursor-pointer'
+                                        onClick={() => setShow(prev => !prev)}
+                                    >
+                                        {show ? "hidden" : "show"}
+                                    </span>
+                                </div>
                             </div>
 
                             <div className='flex items-center justify-center pt-4'>
+
                                 <button
-                                
+
                                     type='submit'
-                                    className='bg-purple-800 h-[40px] w-full rounded text-gray-300 hover:bg-purple-700 transition-all duration-300'
+                                    className='bg-purple-800 h-[40px] w-full rounded text-gray-300 hover:bg-purple-700 transition-all duration-300 '
+                                    disabled={isLoading}
                                 >
-                                    Login
+                                    {isLoading ? "logging in..." : "Login"}
                                 </button>
                             </div>
 
