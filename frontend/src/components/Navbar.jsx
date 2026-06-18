@@ -3,11 +3,47 @@ import logo from "../assets/logo.png"
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { HiMenu, HiX } from "react-icons/hi";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import api from '../services/api';
+import toast from 'react-hot-toast';
 
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
+
+    const user = JSON.parse(localStorage.getItem("user"))
+
     const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        try {
+            const result = await Swal.fire({
+                title: "Are you sure?",
+                text: "You will be logged out",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, Logout!",
+                cancelButtonText: "Cancel"
+            })
+
+            if (!result.isConfirmed) {
+                return
+            }
+
+            await api.get("/auth/logout")
+
+            console.log("logged out successful")
+
+            localStorage.removeItem("user")
+
+            toast.success("Logged out successfully")
+
+            navigate("/")
+        }
+        catch (error) {
+            toast.error("Failed to logout")
+        }
+    }
     return (
         <div className='w-full bg-slate-950 py-[10px] px-4 md:px-10 border-b border-gray-500 
         sticky top-0 z-50  '>
@@ -65,12 +101,44 @@ const Navbar = () => {
                     </li>
                 </ul>
 
-                <button
-                    onClick={() => navigate("/login")}
-                    className='hidden md:block h-[40px] px-5 bg-purple-900 hover:bg-purple-800 transition-all duration-300 text-gray-300 rounded-md'
-                >
-                    Get Started
-                </button>
+
+                {user?.role === "user" && (
+                    <button
+                        onClick={() => handleLogout()}
+                        className='hidden md:block h-[40px] px-5 bg-purple-900 hover:bg-purple-800 transition-all duration-300 text-gray-300 rounded-md'
+                    >
+                        Log Out
+                    </button>
+                )}
+
+                {!user && (
+                    <button
+                        onClick={() => navigate("/login")}
+                        className='hidden md:block h-[40px] px-5 bg-purple-700 hover:bg-purple-600 transition-all duration-300 text-gray-300 rounded-md font-semibold'
+                    >
+                        Get Started
+                    </button>
+
+                )}
+
+                {user?.role === "admin" && (
+
+                    <div className='hidden md:flex gap-5'>
+                        <button
+                            onClick={() => navigate("/admin")}
+                            className='hidden md:block h-[40px] px-5 bg-purple-700 hover:bg-purple-600 transition-all duration-300 text-gray-300 rounded-md font-semibold'
+                        >
+                            Dashboard
+                        </button>
+
+                        <button
+                            onClick={() => handleLogout()}
+                            className='hidden md:block h-[40px] px-5 bg-purple-700 hover:bg-purple-600 transition-all duration-300 text-gray-300 rounded-md font-semibold'
+                        >
+                            Logout
+                        </button>
+                    </div>
+                )}
 
                 <button
                     className='md:hidden text-gray-300 text-3xl'
@@ -96,12 +164,38 @@ const Navbar = () => {
                                 How It Works
                             </NavLink>
 
-                            <button
+                            {!user && (<button
                                 onClick={() => navigate("/login")}
                                 className='h-[40px] px-5 bg-purple-900 rounded-md'
                             >
                                 Get Started
-                            </button>
+                            </button>)}
+
+                            {user?.role === "user" && (<button
+                                onClick={() => navigate("/login")}
+                                className='h-[40px] px-5 bg-purple-900 rounded-md'
+                            >
+                                Log Out
+                            </button>)}
+
+                            {user?.role === "admin" && (
+                                <div className='flex flex-col gap-4'>
+                                    <button
+                                        onClick={() => navigate("/admin")}
+                                        className='h-[40px] px-5 bg-purple-900 rounded-md'
+                                    >
+                                        Dashboard
+                                    </button>
+
+                                    <button
+                                        onClick={() => navigate("/login")}
+                                        className='h-[40px] px-5 bg-purple-900 rounded-md'
+                                    >
+                                        Log Out
+                                    </button>
+                                </div>
+                            )}
+
 
                         </ul>
                     </div>
@@ -110,5 +204,6 @@ const Navbar = () => {
         </div>
     )
 }
+
 
 export default Navbar
