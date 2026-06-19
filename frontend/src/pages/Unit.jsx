@@ -47,10 +47,11 @@ const Unit = () => {
             </div>
 
             {units.map((unit) => (
+                <div className='flex flex-col lg:flex-row items-center px-9'>
                 <div
                     key={unit._id}
                     onClick={() => navigate(`/note/${unit._id}`)}
-                    className="w-[72%] lg:w-[70%] ml-[50px] lg:ml-[180px] bg-[#060b1f] border border-[#1b2440] rounded-3xl px-6 py-5 pb-[55px] lg:pb-5 flex items-center lg:justify-between justify-center shadow-lg relative cursor-pointer hover:border-purple-500 hover:-translate-y-2 duration-300">
+                    className="w-full lg:w-[70%]  lg:ml-[180px] bg-[#060b1f] border border-[#1b2440] rounded-3xl px-6 py-5 pb-[55px] lg:pb-5 flex items-center lg:justify-between justify-center shadow-lg relative cursor-pointer hover:border-purple-500 hover:-translate-y-2 duration-300">
 
 
                     <div className="flex flex-col lg:flex-row items-center lg:items-center gap-3 lg:gap-5">
@@ -73,9 +74,10 @@ const Unit = () => {
 
                     <div className="flex gap-4">
 
-                        <FaArrowRightLong className='text-purple-500 text-[35px] absolute lg:right-[80px] lg:top-[33px] right-[135px] bottom-2' />
+                        <FaArrowRightLong className='text-purple-500 text-[35px] absolute lg:right-[80px] lg:top-[33px] right-[160px] bottom-2' />
 
                     </div>
+                </div>
                 </div>
             ))
             }

@@ -1,11 +1,24 @@
+import cloudinary from "../config/cloudinary.js"
 import Note from "../models/note.model.js"
 import Semester from "../models/semester.model.js"
 import Subject from "../models/subject.model.js"
 import Unit from "../models/unit.model.js"
 
+
 export const createSubject = async (req, res) => {
     try {
+        console.log(req.body);
+        console.log(req.file);
+
         const { subjectName, subjectCode, semesterId } = req.body
+
+        const image = req.file;
+
+        if (!image) {
+            return res.status(400).json({
+                message: "Subject image is required"
+            });
+        }
 
         if (!subjectName || !subjectCode || !semesterId) {
             return res.status(400).json({ message: "All fields are required" })
@@ -32,10 +45,25 @@ export const createSubject = async (req, res) => {
             return res.status(400).json({ message: "Subject already exists in this semester" })
         }
 
+
+        const cloudinaryResult = await new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_stream(
+                {
+                    folder: "uninotes-subjects"
+                },
+                (error, result) => {
+                    if (error) reject(error);
+                    else resolve(result);
+                }
+            ).end(image.buffer);
+        });
+
         const subject = await Subject.create({
             subjectName,
             subjectCode,
-            semesterId
+            semesterId,
+            imageUrl: cloudinaryResult.secure_url,
+            publicId: cloudinaryResult.public_id
         })
 
         return res.status(201).json({
@@ -80,60 +108,139 @@ export const getAllSubjects = async (req, res) => {
     }
 }
 
-
-
 export const updateSubject = async (req, res) => {
     try {
-        const { id } = req.params
+        console.log("BODY:", req.body);
+        console.log("FILE:", req.file);
+        console.log("ID:", req.params.id);
 
-        const { subjectName, subjectCode } = req.body
+        const { id } = req.params;
+        const { subjectName, subjectCode } = req.body;
 
-        const updatedSubject = await Subject.findByIdAndUpdate(
-            id,
-            {
-                subjectName,
-                subjectCode
-            },
-            { new: true }
-        )
+        const image = req.file;
 
-        return res.status(200).json(updatedSubject)
+        const subject = await Subject.findById(id);
+
+        if (!subject) {
+            return res.status(404).json({
+                message: "Subject not found"
+            });
+        }
+
+        subject.subjectName = subjectName;
+        subject.subjectCode = subjectCode;
+
+        if (image) {
+
+            await cloudinary.uploader.destroy(
+                subject.publicId
+            );
+
+            const cloudinaryResult = await new Promise(
+                (resolve, reject) => {
+                    cloudinary.uploader.upload_stream(
+                        {
+                            folder: "uninotes-subjects"
+                        },
+                        (error, result) => {
+                            if (error) reject(error);
+                            else resolve(result);
+                        }
+                    ).end(image.buffer);
+                }
+            );
+
+            subject.imageUrl = cloudinaryResult.secure_url;
+            subject.publicId = cloudinaryResult.public_id;
+        }
+
+        await subject.save();
+
+        return res.status(200).json({
+            message: "Subject updated successfully",
+            subject
+        });
 
     } catch (error) {
-        return res.status(500).json({ message: `update subject error ${error}` })
+        console.log(error);
+
+        return res.status(500).json({
+            message: `update subject error ${error.message}`
+        });
     }
-}
-
-
+};
 
 export const deleteSubject = async (req, res) => {
     try {
-        const { id } = req.params
+        const { id } = req.params;
 
+        const subject = await Subject.findById(id);
 
+        if (!subject) {
+            return res.status(404).json({
+                message: "Subject not found"
+            });
+        }
+
+        // Delete subject image from Cloudinary
+        if (subject.publicId) {
+            await cloudinary.uploader.destroy(
+                subject.publicId
+            );
+        }
+
+        // Find all units of subject
         const units = await Unit.find({
             subjectId: id
         });
 
-        const unitIds = units.map(unit => unit._id);
+        const unitIds = units.map(
+            unit => unit._id
+        );
 
+        // Find all notes of those units
+        const notes = await Note.find({
+            unitId: {
+                $in: unitIds
+            }
+        });
+
+        // Delete PDFs from Cloudinary
+        for (const note of notes) {
+            if (note.publicId) {
+                await cloudinary.uploader.destroy(
+                    note.publicId,
+                    {
+                        resource_type: "raw"
+                    }
+                );
+            }
+        }
+
+        // Delete notes from MongoDB
         await Note.deleteMany({
             unitId: {
                 $in: unitIds
             }
         });
 
+        // Delete units
         await Unit.deleteMany({
             subjectId: id
         });
 
+        // Delete subject
         await Subject.deleteOne({
             _id: id
         });
 
-        return res.status(200).json({ message: "subject delete successfully" })
+        return res.status(200).json({
+            message: "Subject deleted successfully"
+        });
 
     } catch (error) {
-        return res.status(500).json({ message: `delete subject error ${error}` })
+        return res.status(500).json({
+            message: `delete subject error ${error}`
+        });
     }
-}
+};

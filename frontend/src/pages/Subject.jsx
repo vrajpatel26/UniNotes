@@ -71,7 +71,10 @@ const Subject = () => {
                             >
                                 <div className='flex justify-center items-center'>
                                     <div className='h-[180px] w-[90%] rounded-xl  overflow-hidden  '>
-                                        <img src={mathamatics} alt="" className='h-[100%] w-[100%] rounded-xl hover:scale-110 duration-300' />
+                                        {/* <img src={mathamatics} alt="" className='h-[100%] w-[100%] rounded-xl hover:scale-110 duration-300' /> */}
+                                        {subject.imageUrl && (
+                                            <img src={subject.imageUrl} alt={subject.subjectName} />
+                                        )}
                                     </div>
                                 </div>
 

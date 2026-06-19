@@ -14,6 +14,7 @@ const ManageSubject = () => {
   const [updatedSubjectCode, setUpdatedSubjectCode] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false)
+  const [updatedImage, setUpdatedImage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -71,11 +72,11 @@ const ManageSubject = () => {
     }
   }
 
-
   const handleEdit = (subject) => {
     setEditSubjectId(subject._id);
     setUpdatedSubjectName(subject.subjectName);
     setUpdatedSubjectCode(subject.subjectCode);
+    setUpdatedImage(null);
     setIsEditing(true);
   };
 
@@ -85,10 +86,19 @@ const ManageSubject = () => {
 
       setIsLoading(true)
 
-      const res = await api.put(`/subject/${editSubjectId}`, {
-        subjectName: updatedSubjectName,
-        subjectCode: updatedSubjectCode
-      });
+      const formData = new FormData();
+
+      formData.append("subjectName", updatedSubjectName);
+      formData.append("subjectCode", updatedSubjectCode);
+
+      if (updatedImage) {
+        formData.append("image", updatedImage);
+      }
+
+      const res = await api.put(
+        `/subject/${editSubjectId}`,
+        formData
+      );
 
       setSubjects((prev) =>
         prev.map((subject) =>
@@ -107,7 +117,9 @@ const ManageSubject = () => {
       setEditSubjectId(null);
       setUpdatedSubjectName("");
       setUpdatedSubjectCode("");
+      setUpdatedImage(null);
       setIsLoading(false)
+      
 
     } catch (error) {
 
@@ -168,6 +180,12 @@ const ManageSubject = () => {
                 type="text"
                 value={updatedSubjectCode}
                 onChange={(e) => setUpdatedSubjectCode(e.target.value)}
+                className="w-full p-3 rounded-lg bg-slate-800 text-white border border-gray-600"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setUpdatedImage(e.target.files[0])}
                 className="w-full p-3 rounded-lg bg-slate-800 text-white border border-gray-600"
               />
 

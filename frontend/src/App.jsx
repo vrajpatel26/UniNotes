@@ -37,10 +37,10 @@ const App = () => {
                   padding: "12px 16px",
                },
                success: {
-                  duration: 3000,
+                  duration: 2000,
                },
                error: {
-                  duration: 4000,
+                  duration: 3000,
                },
             }}
          />

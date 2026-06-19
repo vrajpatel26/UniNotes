@@ -15,6 +15,7 @@ const AdminSubject = () => {
     const [semesterId, setSemesterId] = useState("")
     const [semesters, setSemesters] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [image, setImage] = useState(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -22,11 +23,14 @@ const AdminSubject = () => {
         try {
             setIsLoading(true)
 
-            const res = await api.post("/subject", {
-                subjectName,
-                semesterId,
-                subjectCode
-            })
+            const formData = new FormData()
+
+            formData.append("subjectName", subjectName)
+            formData.append("subjectCode", subjectCode)
+            formData.append("semesterId", semesterId)
+            formData.append("image", image)
+
+            const res = await api.post("/subject", formData)
 
             console.log(res.data);
             toast.success("Subject created successfully");
@@ -36,6 +40,7 @@ const AdminSubject = () => {
             setSubjectCode("")
             setSemesterId("")
             setIsLoading(false)
+            setImage(null)
 
         } catch (error) {
             console.log(error.response.data)
@@ -129,6 +134,19 @@ const AdminSubject = () => {
                                         </option>
                                     ))}
                                 </select>
+                            </div>
+
+                            <div className='flex flex-col justify-start gap-[5px]'>
+                                <label className='text-gray-300 text-[15px]'>
+                                    Select Subject Image
+                                </label>
+
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => setImage(e.target.files[0])}
+                                    className='w-[100%] h-[40px] px-3 bg-slate-950 text-gray-300 rounded border hover:border-purple-800 outline-none border-slate-700'
+                                />
                             </div>
 
                             <div className='flex items-center justify-center pt-[20px]' >

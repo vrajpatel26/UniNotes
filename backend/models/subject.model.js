@@ -12,9 +12,17 @@ const subjectSchema = new mongoose.Schema({
         unique: true
     },
     semesterId: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref : "Semester",
-        required:true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Semester",
+        required: true
+    },
+    imageUrl: {
+        type: String,
+        required: true
+    },
+    publicId: {
+        type: String,
+        required: true
     }
 },
     {
@@ -23,6 +31,6 @@ const subjectSchema = new mongoose.Schema({
 )
 
 
-const Subject = mongoose.model("Subject",subjectSchema)
+const Subject = mongoose.model("Subject", subjectSchema)
 
 export default Subject;
