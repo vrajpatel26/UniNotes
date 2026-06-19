@@ -198,9 +198,11 @@ CLOUDINARY_API_SECRET=your_api_secret
 * MERN Stack Developer
 * Computer Engineering Student
 * Passionate about Full Stack Development
+  
+LinkedIn: https://www.linkedin.com/in/vraj-patel-3b94542a4/
 
 ---
 
-## 📄 License
+## ⭐ Support
 
-This project is created for educational and portfolio purposes.
+If you found this project helpful, consider giving it a star on GitHub.
