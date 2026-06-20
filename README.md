@@ -13,6 +13,7 @@ UniNotes is a MERN Stack-based platform that helps students access organized stu
 * View Notes Semester-wise
 * Subject-wise and Unit-wise Navigation
 * Open PDF Notes Directly
+* Search Functionality
 * Bookmark Favorite Notes
 * View Saved Notes in Profile
 * Responsive Design for Mobile & Desktop
@@ -183,7 +184,6 @@ CLOUDINARY_API_SECRET=your_api_secret
 
 ## 🎯 Future Improvements
 
-* Search Functionality
 * Review & Rating System
 * Note Download Analytics
 * AI-Based Note Recommendations
