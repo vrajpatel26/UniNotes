@@ -162,7 +162,7 @@ const Home = () => {
             </p>
           </div>
 
-          <FaArrowRightLong className='hidden lg:block text-purple-400 text-[30px]' />
+          <FaArrowRightLong className='hidden lg:block text-purple-400 text-[100px]' />
           <FaArrowDown className='lg:hidden text-purple-400 text-[30px]' />
 
           <div className='h-[150px] w-full max-w-[200px] rounded-xl border border-gray-700 text-gray-300 px-[10px] py-[10px] flex gap-[10px] items-center justify-center flex-col hover:border-purple-500 hover:-translate-y-2 duration-300'>
@@ -172,7 +172,7 @@ const Home = () => {
             </p>
           </div>
 
-          <FaArrowRightLong className='hidden lg:block text-purple-400 text-[30px]' />
+          <FaArrowRightLong className='hidden lg:block text-purple-400 text-[100px]' />
           <FaArrowDown className='lg:hidden text-purple-400 text-[30px]' />
 
 
@@ -184,7 +184,7 @@ const Home = () => {
             </p>
           </div>
 
-          <FaArrowRightLong className='hidden lg:block text-purple-400 text-[30px]' />
+          <FaArrowRightLong className='hidden lg:block text-purple-400 text-[100px]' />
           <FaArrowDown className='lg:hidden text-purple-400 text-[30px]' />
 
 
@@ -195,7 +195,7 @@ const Home = () => {
             </p>
           </div>
 
-          <FaArrowRightLong className='hidden lg:block text-purple-400 text-[30px]' />
+          <FaArrowRightLong className='hidden lg:block text-purple-400 text-[100px]' />
           <FaArrowDown className='lg:hidden text-purple-400 text-[30px]' />
 
 

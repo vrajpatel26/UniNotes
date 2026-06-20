@@ -28,23 +28,7 @@ const Subject = () => {
         fetchSubject()
     }, [semesterId])
     return (
-        // <div className='min-h-screen w-full py-[30px] bg-slate-800 text-white'>
-        //     <div className='flex gap-[20px] '>
-        //         {subjects.map((subject) => (
-        //             <div
-        //                 className='h-[100px] flex justify-center items-center w-[300px] bg-slate-700 rounded-[16px] text-white cursor-pointer'
-        //                 key={subject._id}
-        //                 onClick={()=>navigate(`/unit/${subject._id}`)}
-
-        //             >
-        //                 {subject.subjectName}
-        //             </div>
-        //         ))
-        //         }
-        //     </div>
-        // </div>
-
-
+     
         <div className='w-full bg-slate-950 min-h-screen flex flex-col gap-[50px] pb-6'>
             <div className='text-white flex flex-col items-center p-5'>
 
@@ -66,18 +50,22 @@ const Subject = () => {
                         {subjects.map((subject) => (
                             <div
                                 className='h-[430px] w-[300px] lg:w-[380px]  bg-slate-900 rounded-[16px] text-white  border border-gray-700 hover:border-purple-500 hover:-translate-y-2 duration-300
-                                pt-5 flex flex-col gap-[15px] relative  '
+                                 flex flex-col gap-[15px] relative  '
                                 key={subject._id}
                             >
-                                <div className='flex justify-center items-center'>
-                                    <div className='h-[180px] w-[90%] rounded-xl  overflow-hidden  '>
-                                        {/* <img src={mathamatics} alt="" className='h-[100%] w-[100%] rounded-xl hover:scale-110 duration-300' /> */}
+                                <div className="flex justify-center items-center">
+                                    <div className="relative w-full h-[180px] md:h-[220px]  overflow-hidden  rounded-t-[16px]">
                                         {subject.imageUrl && (
-                                            <img src={subject.imageUrl} alt={subject.subjectName} />
+                                            <img
+                                                src={subject.imageUrl}
+                                                alt={subject.subjectName}
+                                                className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+                                            />
                                         )}
+
+                                        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 to-transparent"></div>
                                     </div>
                                 </div>
-
                                 <div className='flex flex-col items-start pl-5 pr-5 justify-start h-[60px]  border-gray-400'>
                                     <h1 className='text-[20px] font-semibold'>{subject.subjectName}</h1>
                                 </div>
@@ -96,7 +84,7 @@ const Subject = () => {
                                         Explore Course
 
                                     </button>
-                                    <FaArrowRightLong className='text-gray-300 text-[20px] absolute bottom-[52px] right-[60px] lg:right-[100px]   ' />
+                                    <FaArrowRightLong className='text-gray-300 text-[20px] absolute bottom-[70px] md:bottom-[32px] right-[60px] lg:right-[100px]   ' />
                                 </div>
                             </div>
                         ))

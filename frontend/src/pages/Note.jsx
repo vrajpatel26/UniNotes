@@ -105,7 +105,7 @@ const Note = () => {
                                 <span className="text-purple-500 text-3xl font-bold"><MdGridView /></span>
                             </div>
 
-
+\
                             <div>
                                 <div
                                     className="flex lg:flex-row flex-col items-center lg:gap-2 gap-1">

@@ -15,7 +15,6 @@ import AdminNote from './pages/Admin/AdminNote'
 import ProtectedRoute from './components/ProtectedRoute'
 import Navbar from './components/Navbar'
 import MainLayout from './layout/MainLayout'
-import About from './pages/About'
 import HowItWorks from './pages/HowItWorks'
 import ManageSubject from './pages/Admin/ManageSubject'
 import ManageUnit from './pages/Admin/ManageUnit'
@@ -54,7 +53,7 @@ const App = () => {
                <Route path="/subject/:semesterId" element={<Subject />} />
                <Route path="/unit/:subjectId" element={<Unit />} />
                <Route path="/note/:unitId" element={<Note />} />
-               <Route path='/about' element={<About />} />
+             
                <Route path='/howitworks' element={<HowItWorks />} />
                <Route path='/profile' element={<Profile />} />
             </Route>
