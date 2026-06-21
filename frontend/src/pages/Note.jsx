@@ -50,8 +50,19 @@ const Note = () => {
             }
 
         } catch (error) {
-            console.log(error.response?.data)
-            toast.error(res.data.message)
+            if (error.response?.status === 401) {
+                toast.error("Please login to bookmark notes")
+
+                setTimeout(() => {
+                    navigate("/login")
+                }, 1000)
+
+                return
+            }
+            toast.error(
+                error.response?.data?.message ||
+                "Something went wrong"
+            )
         }
     }
 
@@ -105,7 +116,7 @@ const Note = () => {
                                 <span className="text-purple-500 text-3xl font-bold"><MdGridView /></span>
                             </div>
 
-\
+                            \
                             <div>
                                 <div
                                     className="flex lg:flex-row flex-col items-center lg:gap-2 gap-1">

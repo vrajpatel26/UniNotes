@@ -17,6 +17,7 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
+
             const result = await Swal.fire({
                 title: "Are you sure?",
                 text: "You will be logged out",
@@ -32,15 +33,14 @@ const Navbar = () => {
 
             await api.get("/auth/logout")
 
-            console.log("logged out successful")
-
             localStorage.removeItem("user")
 
             toast.success("Logged out successfully")
 
-            navigate("/")
-        }
-        catch (error) {
+            window.location.href = "/"
+
+        } catch (error) {
+            console.log(error.response?.data)
             toast.error("Failed to logout")
         }
     }
@@ -104,7 +104,8 @@ const Navbar = () => {
 
 
                 {user?.role === "user" && (
-                    <div className='hidden md:flex gap-5'>
+                    <div className='hidden items-center md:flex gap-5'>
+                      
                         <button
                             onClick={() => navigate("/profile")}
                             className='hidden md:block h-[40px] px-5 bg-purple-700 hover:bg-purple-600 transition-all duration-300 text-gray-300 rounded-md font-semibold'
@@ -112,7 +113,7 @@ const Navbar = () => {
                             Profile
                         </button>
                         <button
-                            onClick={() => handleLogout()}
+                            onClick={handleLogout}
                             className='hidden md:block h-[40px] px-5 bg-purple-700 hover:bg-purple-600 transition-all duration-300 text-gray-300 rounded-md font-semibold'
                         >
                             Log Out
@@ -162,16 +163,31 @@ const Navbar = () => {
                         <ul className='flex flex-col items-center gap-4 text-gray-300'>
 
                             <li>
-                                <NavLink to="/">Home</NavLink>
+                                <NavLink
+                                    to="/"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    Home
+                                </NavLink>
                             </li>
 
                             <li>
-                                <NavLink to="/semester">Notes</NavLink>
+                                <NavLink
+                                    to="/semester"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    Notes
+                                </NavLink>
                             </li>
 
-                            <NavLink to="/howitworks">
-                                How It Works
-                            </NavLink>
+                            <li>
+                                <NavLink
+                                    to="/howitworks"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    How It Works
+                                </NavLink>
+                            </li>
 
                             {!user && (<button
                                 onClick={() => navigate("/login")}
@@ -180,24 +196,41 @@ const Navbar = () => {
                                 Get Started
                             </button>)}
 
-                            {user?.role === "user" && (<button
-                                onClick={() => navigate("/login")}
-                                className='h-[40px] px-5 bg-purple-900 rounded-md'
-                            >
-                                Log Out
-                            </button>)}
+                            {user?.role === "user" && (
+                                <div className='flex flex-col gap-4'>
+                                    <button
+                                        onClick={() => {
+                                            navigate("/profile")
+                                            setIsOpen(false)
+                                        }}
+                                        className='h-[40px] px-5 bg-purple-900 rounded-md'
+                                    >
+                                        Profile
+                                    </button>
+
+                                    <button
+                                        onClick={handleLogout}
+                                        className='h-[40px] px-5 bg-purple-900 rounded-md'
+                                    >
+                                        Log Out
+                                    </button>
+                                </div>
+                            )}
 
                             {user?.role === "admin" && (
                                 <div className='flex flex-col gap-4'>
                                     <button
-                                        onClick={() => navigate("/admin")}
+                                        onClick={() => {
+                                            navigate("/admin")
+                                            setIsOpen(false)
+                                        }}
                                         className='h-[40px] px-5 bg-purple-900 rounded-md'
                                     >
                                         Dashboard
                                     </button>
 
                                     <button
-                                        onClick={() => navigate("/login")}
+                                        onClick={handleLogout}
                                         className='h-[40px] px-5 bg-purple-900 rounded-md'
                                     >
                                         Log Out

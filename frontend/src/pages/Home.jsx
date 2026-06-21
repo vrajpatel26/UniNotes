@@ -34,16 +34,15 @@ const Home = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await api.get("/auth/logout")
-      console.log("logout successfully");
+      await api.get("/auth/logout")
+      console.log("logout sucessful")
+    } catch (error) {
+      console.log(error.response?.data)
+    } finally {
 
-      localStorage.clear()
+      localStorage.removeItem("user")
+
       navigate("/login")
-
-    }
-    catch (error) {
-      console.log(error.response?.data);
-
     }
   }
 
