@@ -105,7 +105,10 @@ export const getNoteByUnitId = async (req, res) => {
 
 export const getAllNotes = async (req, res) => {
     try {
-        const notes = await Note.find().populate("unitId")
+        const notes = await Note.find().populate("unitId").populate({
+            path:"unitId",
+            populate:"subjectId"
+        })
 
         return res.status(200).json(notes)
 

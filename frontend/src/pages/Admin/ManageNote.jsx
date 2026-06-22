@@ -12,7 +12,7 @@ const ManageNotes = () => {
   const [editNoteId, setEditNoteId] = useState(null);
   const [updatedTitle, setUpdatedTitle] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [isLoading , setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const navigate = useNavigate()
 
@@ -99,7 +99,7 @@ const ManageNotes = () => {
 
     } catch (error) {
       console.log("update note error", error);
-       toast.error(
+      toast.error(
         error.response?.data?.message || "Something went wrong"
       );
       setIsLoading(false)
@@ -212,15 +212,10 @@ const ManageNotes = () => {
                 <div>
                   <h2 className="text-base sm:text-lg lg:text-xl font-semibold text-white break-words">
                     {/* {note.title} - {note.unitId?.unitName} */}
-                    {note.title}
+                    {note.title}- ({note?.unitId?.subjectId?.subjectName})
                   </h2>
 
-                  {/* <p className="text-sm text-purple-300">
-                    ({note.subjectId?.subjectCode})
-
-                  </p> */}
-
-
+            
                 </div>
               </div>
 

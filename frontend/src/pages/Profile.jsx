@@ -98,7 +98,7 @@ const Profile = () => {
                                     className='bg-slate-900 border border-slate-700 rounded-lg p-3 flex lg:flex-row flex-col justify-between items-center hover:border-purple-800 duration-300'
                                 >
                                     <h3 className='text-white font-medium'>
-                                        {note.title}
+                                      {note.title}
                                     </h3>
                                     <button
                                         key={note._id}

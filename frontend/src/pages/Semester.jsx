@@ -181,12 +181,12 @@ const Semester = () => {
                                         <div className='flex pt-5 pl-5 gap-[10px]'>
                                             <div className='flex items-center gap-[5px]'>
                                                 <FiBookOpen className='h-[17px] w-[17px] text-purple-500' />
-                                                <h1 className='text-gray-300' >4 subjects</h1>
+                                                <h1 className='text-gray-300' >{sem.subjectCount} subjects</h1>
                                             </div>
 
                                             <div className='flex items-center gap-[5px]'>
                                                 <HiOutlineSquare3Stack3D className='h-[17px] w-[17px] text-purple-500' />
-                                                <h1 className='text-gray-300'>10 units</h1>
+                                                <h1 className='text-gray-300'>{sem.unitCount} units</h1>
                                             </div>
                                         </div>
 

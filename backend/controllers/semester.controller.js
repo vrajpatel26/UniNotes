@@ -1,4 +1,6 @@
 import Semester from "../models/semester.model.js";
+import Subject from "../models/subject.model.js";
+import Unit from "../models/unit.model.js";
 
 export const createSemester = async (req, res) => {
     try {
@@ -23,21 +25,62 @@ export const createSemester = async (req, res) => {
         return res.status(200).json(semester)
 
     } catch (error) {
+        
         return res.status(500).json({ message: `semester creation error ${error}` })
     }
 }
 
 
 
+// export const getAllSemesters = async (req, res) => {
+//     try {
+//         const semesters = await Semester.find().sort({
+//             semesterNumber: 1 //for sort like 1,2,3,4...
+//         })
+
+//         return res.status(200).json(semesters)
+
+//     } catch (error) {
+//         return res.status(500).json({ message: `get All semesters error ${error}` })
+//     }
+// }
+
 export const getAllSemesters = async (req, res) => {
     try {
+
         const semesters = await Semester.find().sort({
-            semesterNumber: 1 //for sort like 1,2,3,4...
+            semesterNumber: 1
         })
 
-        return res.status(200).json(semesters)
+        const semesterData = await Promise.all(
+            semesters.map(async (semester) => {
+
+                const subjects = await Subject.find({
+                    semesterId: semester._id
+                })
+
+                const subjectIds = subjects.map(subject => subject._id)
+
+                const unitCount = await Unit.countDocuments({
+                    subjectId: {
+                        $in: subjectIds
+                    }
+                })
+
+                return {
+                    ...semester.toObject(),
+                    subjectCount: subjects.length,
+                    unitCount
+                }
+            })
+        )
+
+        return res.status(200).json(semesterData)
 
     } catch (error) {
-        return res.status(500).json({ message: `get All semesters error ${error}` })
+        console.log(error)
+        return res.status(500).json({
+            message: `get All semesters error ${error}`
+        })
     }
 }
