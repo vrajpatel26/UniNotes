@@ -16,6 +16,7 @@ import unitRouter from "./routes/unit.route.js";
 import noteRouter from "./routes/note.route.js";
 import dashboardRouter from "./routes/dashboard.route.js";
 import bookmarkRouter from "./routes/bookmark.route.js";
+import feedbackRouter from "./routes/feedback.route.js";
 
 const PORT = process.env.PORT || 5000
 
@@ -38,6 +39,7 @@ app.use("/api/unit",unitRouter)
 app.use("/api/note",noteRouter)
 app.use("/api/dashboard",dashboardRouter)
 app.use("/api/bookmark",bookmarkRouter)
+app.use("/api/feedback", feedbackRouter);
 
 app.listen(PORT,()=>{
     connectDB()

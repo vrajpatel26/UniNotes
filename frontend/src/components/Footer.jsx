@@ -1,15 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { LuGraduationCap } from "react-icons/lu";
 import { Link, useNavigate } from 'react-router-dom';
 import logo from "../assets/logo.png"
-
+import api from '../services/api';
+import toast from "react-hot-toast"
 
 const Footer = () => {
+  const [message, setMessage] = useState("")
+  const [isSending, setIsSending] = useState(false)
   const navigate = useNavigate()
+
+  const handleFeedback = async (e) => {
+    e.preventDefault()
+
+    if (!message.trim()) {
+      return alert("Please enter your feedback")
+    }
+
+    try {
+      setIsSending(true)
+
+      const res = await api.post("/feedback", {
+        message
+      })
+
+      toast.success("Thank you for your feedback! 🚀")
+
+      setMessage("")
+
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to send feedback")
+    } finally {
+      setIsSending(false)
+    }
+  }
   return (
     <>
       <div className='w-full bg-slate-950 border-t border-gray-800 flex justify-center py-10 px-4'>
-        <div className='flex flex-col md:flex-row items-start md:items-center justify-between w-full max-w-6xl gap-10'>
+        <div className='flex flex-col md:flex-row items-start justify-between w-full max-w-6xl gap-10'>
 
           <div className='w-full md:w-1/2 flex flex-col'>
             <div
@@ -31,7 +59,7 @@ const Footer = () => {
             </p>
           </div>
 
-          
+
           <div className='w-full md:w-auto flex flex-col gap-3'>
             <h2 className='font-semibold text-white'>Quick Links</h2>
 
@@ -39,7 +67,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/"
-                  
+
                   className='hover:text-purple-400 transition-all duration-300'
                 >
                   Home
@@ -49,7 +77,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/howitworks"
-           
+
                   className='hover:text-purple-400 transition-all duration-300'
                 >
                   How It Works
@@ -59,7 +87,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/semester"
-                 
+
                   className='hover:text-purple-400 transition-all duration-300'
                 >
                   Notes
@@ -68,6 +96,33 @@ const Footer = () => {
             </ul>
           </div>
 
+          <div className='w-full md:w-[350px]'>
+            <h2 className='font-semibold text-white mb-3'>
+              Feedback
+            </h2>
+
+            <p className='text-gray-500 text-sm mb-3'>
+             Have a Suggestion?
+            </p>
+
+            <form onSubmit={handleFeedback}>
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder='Write your feedback...'
+                rows="4"
+                className='w-full bg-slate-900 border border-gray-700 rounded-lg p-3 text-white outline-none focus:border-purple-500 resize-none'
+              />
+
+              <button
+                type='submit'
+                disabled={isSending}
+                className='mt-3 bg-purple-700 hover:bg-purple-600 disabled:opacity-50 text-white px-5 py-2 rounded-lg transition-all duration-300'
+              >
+                {isSending ? "Sending..." : "Send Feedback"}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
 
