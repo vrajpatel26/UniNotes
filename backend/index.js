@@ -27,21 +27,21 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
     credentials: true
 }))
 
-app.use("/api/auth",authRouter)
-app.use("/api/user",userRouter)
-app.use("/api/semester",semesterRouter)
-app.use("/api/subject",subjectRouter)
-app.use("/api/unit",unitRouter)
-app.use("/api/note",noteRouter)
-app.use("/api/dashboard",dashboardRouter)
-app.use("/api/bookmark",bookmarkRouter)
+app.use("/api/auth", authRouter)
+app.use("/api/user", userRouter)
+app.use("/api/semester", semesterRouter)
+app.use("/api/subject", subjectRouter)
+app.use("/api/unit", unitRouter)
+app.use("/api/note", noteRouter)
+app.use("/api/dashboard", dashboardRouter)
+app.use("/api/bookmark", bookmarkRouter)
 app.use("/api/feedback", feedbackRouter);
 
-app.listen(PORT,()=>{
-    connectDB()
+connectDB()
+app.listen(PORT, () => {
     console.log(`server started on ${PORT} PORT`)
 })
