@@ -15,6 +15,7 @@ const Note = () => {
 
     const [notes, setNotes] = useState([])
     const [bookmarks, setBookmarks] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     const navigate = useNavigate()
 
@@ -29,6 +30,9 @@ const Note = () => {
                 setNotes(res.data)
             } catch (error) {
                 console.log("fetch note error", error)
+            }
+            finally {
+                setLoading(false)
             }
         }
         fetchNote()
@@ -82,6 +86,39 @@ const Note = () => {
 
         fetchBookmarks();
     }, []);
+
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+                <h1 className="text-white text-[40px]">
+                    Loading...
+                </h1>
+            </div>
+        )
+    }
+
+    if (notes.length === 0) {
+        return (
+            <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center px-5 text-center">
+                <h1 className="text-4xl font-bold text-purple-500">
+                    📚 Notes Coming Soon
+                </h1>
+
+                <p className="text-gray-400 mt-4 max-w-md">
+                    We are currently preparing notes for this subject.
+                    Please check back later.
+                </p>
+
+                <button
+                    onClick={() => navigate(-1)}
+                    className="mt-6 bg-purple-700 hover:bg-purple-600 px-6 py-2 rounded-lg text-white transition-all duration-300"
+                >
+                    Back to Unit
+                </button>
+            </div>
+        )
+    }
 
     return (
 

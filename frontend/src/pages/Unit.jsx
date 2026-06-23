@@ -36,7 +36,7 @@ const Unit = () => {
     if (loading) {
         return (
             <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-                <h1 className="text-white text-xl">
+                <h1 className="text-white text-[40px]">
                     Loading...
                 </h1>
             </div>
@@ -64,6 +64,7 @@ const Unit = () => {
             </div>
         )
     }
+    console.log(units)
     return (
 
         <div className='w-full bg-slate-950 min-h-screen flex flex-col  gap-[25px] pb-6'>
@@ -79,6 +80,14 @@ const Unit = () => {
                 <FaArrowLeftLong className='text-gray-400  ' />
                 <h1 className='text-[15px] text-gray-400 font-semibold' >Back to Course</h1>
             </div>
+
+            {subjectId === "6a36465cfbbad97f470d847d" && (
+                <div className="mx-auto w-[90%] lg:w-[70%] bg-purple-900/20 border border-purple-700 rounded-xl p-4 text-center">
+                    <p className="text-gray-300">
+                        📘 These 4 units cover all 15 topics of Fundamentals of Mechanical Engineering (FME) based on the latest LDRP syllabus.
+                    </p>
+                </div>
+            )}
 
             {units.map((unit) => (
                 <div className='flex flex-col lg:flex-row items-center px-9'>

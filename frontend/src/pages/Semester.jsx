@@ -11,6 +11,7 @@ const Semester = () => {
     const [semesters, setSemesters] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
     const [allSubjects, setAllSubjects] = useState([])
+    const [loading,setLoading] = useState(true)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -23,11 +24,14 @@ const Semester = () => {
             } catch (error) {
                 console.log("fetch semester error", error)
             }
+            finally {
+                setLoading(false)
+            }
         }
         fetchSemester()
     }, [])
 
-
+  
     useEffect(() => {
         const fetchSubjects = async () => {
             try {
@@ -43,11 +47,23 @@ const Semester = () => {
         fetchSubjects()
     }, [])
 
+    
+
     const filteredSubjects = allSubjects.filter(subject =>
         subject.subjectName
             .toLowerCase()
             .includes(searchTerm.toLowerCase())
     )
+
+      if (loading) {
+        return (
+            <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+                <h1 className="text-white text-[40px]">
+                    Loading...
+                </h1>
+            </div>
+        )
+    }
 
     return (
 

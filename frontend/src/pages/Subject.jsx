@@ -12,7 +12,7 @@ const Subject = () => {
     const { semesterId } = useParams()
 
     const [subjects, setSubjects] = useState([])
-
+    const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -24,11 +24,25 @@ const Subject = () => {
             } catch (error) {
                 console.log("fetch subject error", error)
             }
+            finally {
+                setLoading(false)
+            }
         }
         fetchSubject()
     }, [semesterId])
+
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+                <h1 className="text-white text-[40px]">
+                    Loading...
+                </h1>
+            </div>
+        )
+    }
     return (
-     
+
         <div className='w-full bg-slate-950 min-h-screen flex flex-col gap-[50px] pb-6'>
             <div className='text-white flex flex-col items-center p-5'>
 

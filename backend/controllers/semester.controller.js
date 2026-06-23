@@ -31,20 +31,6 @@ export const createSemester = async (req, res) => {
 }
 
 
-
-// export const getAllSemesters = async (req, res) => {
-//     try {
-//         const semesters = await Semester.find().sort({
-//             semesterNumber: 1 //for sort like 1,2,3,4...
-//         })
-
-//         return res.status(200).json(semesters)
-
-//     } catch (error) {
-//         return res.status(500).json({ message: `get All semesters error ${error}` })
-//     }
-// }
-
 export const getAllSemesters = async (req, res) => {
     try {
 
@@ -52,6 +38,7 @@ export const getAllSemesters = async (req, res) => {
             semesterNumber: 1
         })
 
+        
         const semesterData = await Promise.all(
             semesters.map(async (semester) => {
 
