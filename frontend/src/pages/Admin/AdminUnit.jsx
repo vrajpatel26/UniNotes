@@ -22,11 +22,7 @@ const AdminUnit = () => {
     e.preventDefault()
     try {
       setIsLoading(true)
-      console.log({
-        unitNumber,
-        unitName,
-        subjectId
-      })
+     
 
       const res = await api.post("/unit", {
         unitNumber,

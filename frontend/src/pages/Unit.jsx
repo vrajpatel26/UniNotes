@@ -101,7 +101,7 @@ const Unit = () => {
 
 
                             <div className="w-10 lg:w-16 h-10 lg:h-16 rounded-2xl border border-purple-600 flex items-center justify-center">
-                                <span className="text-purple-500 text-2xl lg:text-3xl font-bold">0{unit.unitNumber}</span>
+                                <span className="text-purple-500 text-2xl lg:text-3xl font-bold">{unit.unitNumber}</span>
                             </div>
 
 

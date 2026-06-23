@@ -20,7 +20,7 @@ const ManageNotes = () => {
     const getAllNotes = async () => {
       try {
         const res = await api.get("/note/all")
-        console.log(res.data)
+        // console.log(res.data)
         setNotes(res.data)
 
       } catch (error) {

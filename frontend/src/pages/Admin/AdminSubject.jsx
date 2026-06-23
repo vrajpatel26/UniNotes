@@ -32,7 +32,7 @@ const AdminSubject = () => {
 
             const res = await api.post("/subject", formData)
 
-            console.log(res.data);
+            // console.log(res.data);
             toast.success("Subject created successfully");
 
 

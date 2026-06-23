@@ -23,7 +23,7 @@ const Login = () => {
                 password
             })
 
-            console.log(response.data);
+            // console.log(response.data);
 
             localStorage.setItem(
                 "user",

@@ -7,9 +7,7 @@ import Unit from "../models/unit.model.js"
 
 export const createSubject = async (req, res) => {
     try {
-        console.log(req.body);
-        console.log(req.file);
-
+    
         const { subjectName, subjectCode, semesterId } = req.body
 
         const image = req.file;
@@ -110,9 +108,7 @@ export const getAllSubjects = async (req, res) => {
 
 export const updateSubject = async (req, res) => {
     try {
-        console.log("BODY:", req.body);
-        console.log("FILE:", req.file);
-        console.log("ID:", req.params.id);
+    
 
         const { id } = req.params;
         const { subjectName, subjectCode } = req.body;

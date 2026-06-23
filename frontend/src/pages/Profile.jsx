@@ -12,7 +12,7 @@ const Profile = () => {
         const fetchProfile = async () => {
             try {
                 const res = await api.get("/user/me")
-                console.log(res.data)
+                // console.log(res.data)
 
                 setUser(res.data)
 

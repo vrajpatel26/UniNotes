@@ -22,7 +22,7 @@ const ManageUnit = () => {
     const getAllUnits = async () => {
       try {
         const res = await api.get("/unit/all")
-        console.log(res.data)
+        // console.log(res.data)
         setUnits(res.data)
 
       } catch (error) {

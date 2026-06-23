@@ -39,13 +39,11 @@ const AdminNote = () => {
       formData.append("uploadedBy", user._id)
       formData.append("pdf", pdf)
 
-      console.log(title)
-      console.log(unitId)
-      console.log(pdf)
+    
 
       const res = await api.post("/note", formData)
 
-      console.log(res.data)
+      // console.log(res.data)
       toast.success("Note created successfully");
 
 

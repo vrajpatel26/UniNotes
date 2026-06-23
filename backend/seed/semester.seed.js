@@ -24,7 +24,7 @@ const semesterSeed = async () => {
         await Semester.deleteMany({})
 
         await Semester.insertMany(semesters)
-        console.log("Semesters seeded successfully")
+     
 
         process.exit(0)
 

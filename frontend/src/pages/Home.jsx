@@ -35,7 +35,7 @@ const Home = () => {
   const handleLogout = async () => {
     try {
       await api.get("/auth/logout")
-      console.log("logout sucessful")
+    
     } catch (error) {
       console.log(error.response?.data)
     } finally {
