@@ -64,7 +64,7 @@ const Unit = () => {
             </div>
         )
     }
-  
+
     return (
 
         <div className='w-full bg-slate-950 min-h-screen flex flex-col  gap-[25px] pb-6'>
@@ -117,7 +117,9 @@ const Unit = () => {
 
                         <div className="flex gap-4">
 
-                            <FaArrowRightLong className='text-purple-500 text-[35px] absolute lg:right-[80px] lg:top-[33px] right-[160px] bottom-2' />
+                            <FaArrowRightLong
+                                className="text-purple-500 text-[35px] absolute bottom-3 left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-[80px] lg:top-1/2 lg:-translate-y-1/2"
+                            />
 
                         </div>
                     </div>

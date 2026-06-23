@@ -157,7 +157,7 @@ const Note = () => {
                             <div>
                                 <div
                                     className="flex lg:flex-row flex-col items-center lg:gap-2 gap-1">
-                                    <h2 className="text-white text-2xl font-semibold">
+                                    <h2 className="text-white text-2xl font-semibold text-center">
                                         {note.title}
                                     </h2>
 

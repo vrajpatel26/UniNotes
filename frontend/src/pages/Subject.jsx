@@ -81,7 +81,7 @@ const Subject = () => {
                                     </div>
                                 </div>
                                 <div className='flex flex-col items-start pl-5 pr-5 justify-start h-[60px]  border-gray-400'>
-                                    <h1 className='text-[20px] font-semibold'>{subject.subjectName}</h1>
+                                    <h1 className='text-[20px] font-semibold line-clamp-2'>{subject.subjectName}</h1>
                                 </div>
 
 
@@ -98,7 +98,7 @@ const Subject = () => {
                                         Explore Course
 
                                     </button>
-                                    <FaArrowRightLong className='text-gray-300 text-[20px] absolute bottom-[70px] md:bottom-[32px] right-[60px] lg:right-[100px]   ' />
+                                    <FaArrowRightLong className='text-gray-300 text-[20px] absolute bottom-[72px] md:bottom-[32px] right-[60px] lg:right-[100px]   ' />
                                 </div>
                             </div>
                         ))
