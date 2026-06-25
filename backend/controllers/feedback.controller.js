@@ -19,7 +19,7 @@ export const sendFeedback = async (req, res) => {
 
         const { data, error } = await resend.emails.send({
             from: "onboarding@resend.dev",
-            to: ["vrajp4406@gmail.com"],
+            to: ["uninotes58@gmail.com"],
             subject: "New UniNotes Feedback",
             text: `Feedback Received from UniNotes:\n\n${message}`,
         });
