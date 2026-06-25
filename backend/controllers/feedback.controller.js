@@ -20,7 +20,12 @@ export const sendFeedback = async (req, res) => {
         console.log("4. PASS LENGTH:", process.env.EMAIL_PASS?.length);
 
         const transporter = nodemailer.createTransport({
-            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            connectionTimeout: 10000,
+            greetingTimeout: 10000,
+            socketTimeout: 10000,
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
@@ -30,12 +35,17 @@ export const sendFeedback = async (req, res) => {
         console.log("5. Transport created");
         console.log("6. Sending email...");
 
-        const info = await transporter.sendMail({
-            from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER,
-            subject: "New UniNotes Feedback",
-            text: `Feedback Received from UniNotes:\n\n${message}`,
-        });
+        const info = await Promise.race([
+            transporter.sendMail({
+                from: process.env.EMAIL_USER,
+                to: process.env.EMAIL_USER,
+                subject: "New UniNotes Feedback",
+                text: `Feedback Received from UniNotes:\n\n${message}`,
+            }),
+            new Promise((_, reject) =>
+                setTimeout(() => reject(new Error("SENDMAIL TIMEOUT")), 10000)
+            ),
+        ]);
 
         console.log("7. Email sent successfully");
         console.log("Message ID:", info.messageId);
