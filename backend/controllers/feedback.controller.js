@@ -29,8 +29,21 @@ export const sendFeedback = async (req, res) => {
         console.log("5. Transport created");
 
         try {
-            await transporter.verify();
-            console.log("6. SMTP Verified");
+            try {
+                const result = await Promise.race([
+                    transporter.verify(),
+                    new Promise((_, reject) =>
+                        setTimeout(() => reject(new Error("VERIFY TIMEOUT")), 10000)
+                    ),
+                ]);
+
+                console.log("6. SMTP Verified", result);
+            } catch (err) {
+                console.error("VERIFY FAILED:", err);
+                return res.status(500).json({
+                    message: err.message,
+                });
+            }
         } catch (err) {
             console.error("SMTP VERIFY ERROR:", err);
             return res.status(500).json({
