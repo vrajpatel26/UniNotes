@@ -1,7 +1,6 @@
-import nodemailer from "nodemailer";
-import dns from "dns";
+import { Resend } from "resend";
 
-dns.setDefaultResultOrder("ipv4first");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendFeedback = async (req, res) => {
     try {
@@ -11,44 +10,31 @@ export const sendFeedback = async (req, res) => {
 
         if (!message) {
             return res.status(400).json({
+                success: false,
                 message: "Message is required",
             });
         }
 
-        console.log("2. Message:", message);
-        console.log("3. EMAIL_USER:", process.env.EMAIL_USER);
-        console.log("4. PASS LENGTH:", process.env.EMAIL_PASS?.length);
+        console.log("2. Sending email using Resend...");
 
-        const transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
-            connectionTimeout: 10000,
-            greetingTimeout: 10000,
-            socketTimeout: 10000,
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
+        const { data, error } = await resend.emails.send({
+            from: "onboarding@resend.dev",
+            to: ["vrajp4406@gmail.com"],
+            subject: "New UniNotes Feedback",
+            text: `Feedback Received from UniNotes:\n\n${message}`,
         });
 
-        console.log("5. Transport created");
-        console.log("6. Sending email...");
+        if (error) {
+            console.error("RESEND ERROR:", error);
 
-        const info = await Promise.race([
-            transporter.sendMail({
-                from: process.env.EMAIL_USER,
-                to: process.env.EMAIL_USER,
-                subject: "New UniNotes Feedback",
-                text: `Feedback Received from UniNotes:\n\n${message}`,
-            }),
-            new Promise((_, reject) =>
-                setTimeout(() => reject(new Error("SENDMAIL TIMEOUT")), 10000)
-            ),
-        ]);
+            return res.status(500).json({
+                success: false,
+                message: error.message,
+            });
+        }
 
-        console.log("7. Email sent successfully");
-        console.log("Message ID:", info.messageId);
+        console.log("3. Email sent successfully");
+        console.log(data);
 
         return res.status(200).json({
             success: true,
@@ -56,8 +42,7 @@ export const sendFeedback = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("FEEDBACK ERROR:");
-        console.error(error);
+        console.error("FEEDBACK ERROR:", error);
 
         return res.status(500).json({
             success: false,
