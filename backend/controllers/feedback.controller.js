@@ -7,9 +7,11 @@ export const sendFeedback = async (req, res) => {
         const { message } = req.body;
 
         console.log("2. Message:", message);
-
+        console.log(process.env.EMAIL_USER);
         const transporter = nodemailer.createTransport({
-            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
