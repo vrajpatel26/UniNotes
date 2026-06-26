@@ -11,7 +11,7 @@ const Semester = () => {
     const [semesters, setSemesters] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
     const [allSubjects, setAllSubjects] = useState([])
-    const [loading,setLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -31,23 +31,42 @@ const Semester = () => {
         fetchSemester()
     }, [])
 
-  
+
+    // useEffect(() => {
+    //     const fetchSubjects = async () => {
+    //         try {
+    //             const res = await api.get("/subject/all")
+
+    //             setAllSubjects(res.data)
+
+    //         } catch (error) {
+    //             console.log("fetch subject error", error)
+    //         }
+    //     }
+
+    //     fetchSubjects()
+    // }, [])
+
     useEffect(() => {
+
+        if (!searchTerm.trim()) return;
+
+        if (allSubjects.length > 0) return;
+
         const fetchSubjects = async () => {
             try {
-                const res = await api.get("/subject/all")
-
-                setAllSubjects(res.data)
-
+                const res = await api.get("/subject/all");
+                setAllSubjects(res.data);
             } catch (error) {
-                console.log("fetch subject error", error)
+                console.log(error);
             }
-        }
+        };
 
-        fetchSubjects()
-    }, [])
+        fetchSubjects();
 
-    
+    }, [searchTerm]);
+
+
 
     const filteredSubjects = allSubjects.filter(subject =>
         subject.subjectName
@@ -55,7 +74,7 @@ const Semester = () => {
             .includes(searchTerm.toLowerCase())
     )
 
-      if (loading) {
+    if (loading) {
         return (
             <div className="min-h-screen bg-slate-950 flex items-center justify-center">
                 <h1 className="text-white text-[40px]">
