@@ -14,7 +14,8 @@ const subjectSchema = new mongoose.Schema({
     semesterId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Semester",
-        required: true
+        required: true,
+        index:true
     },
     imageUrl: {
         type: String,

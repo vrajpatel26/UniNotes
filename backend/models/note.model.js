@@ -17,6 +17,7 @@ const noteSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Unit",
         required: true,
+        index:true
     },
     uploadedBy: {
         type: mongoose.Schema.Types.ObjectId,
