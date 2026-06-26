@@ -4,6 +4,37 @@ UniNotes is a MERN Stack-based platform that helps students access organized stu
 
 ---
 
+## 📸 Project Preview
+
+### Home Page
+<img width="1896" height="907" alt="image" src="https://github.com/user-attachments/assets/74370e05-bd8f-4472-aaf1-d1ca3ce4dae9" />
+
+### Semester Page
+<img width="1888" height="897" alt="image" src="https://github.com/user-attachments/assets/361b9892-fee1-4a1c-9538-bf9360f64e7f" />
+
+### Subject Page
+<img width="1887" height="898" alt="image" src="https://github.com/user-attachments/assets/9e2c5594-8189-4688-9d13-d098fa37e188" />
+
+### Unit Page
+<img width="1891" height="897" alt="image" src="https://github.com/user-attachments/assets/868f32e7-de59-477c-9b73-a557db4b3339" />
+
+### Note Page
+<img width="1893" height="871" alt="image" src="https://github.com/user-attachments/assets/2d3f3e75-3f53-44be-a5b2-f56e58ddcb13" />
+
+### Login Page
+<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/2c150fa5-03d4-46fd-8eb7-0086f2b0b1c5" /> 
+
+### Signup Page
+<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/2e5a70df-0569-454f-ac15-2440a074ffbf" />
+
+### Profile Page
+<img width="1890" height="897" alt="image" src="https://github.com/user-attachments/assets/df3cd086-e467-4955-a61d-d260a9a93cc5" />
+
+### Admin Dashboard Page
+<img width="1887" height="897" alt="image" src="https://github.com/user-attachments/assets/850327c9-8fe5-42a4-8ba8-0d12319e338a" />
+
+
+
 ## 🚀 Features
 
 ### 👨‍🎓 User Features
