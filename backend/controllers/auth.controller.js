@@ -85,12 +85,16 @@ export const login = async (req, res) => {
 
         const token = await genToken(user._id)
 
+        console.log("Generated token:", token);
+
         res.cookie("token", token, ({
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000,
             sameSite: "None",
             secure: true
         }))
+
+        console.log("Cookie set successfully");
 
 
         return res.status(200).json({
@@ -114,6 +118,12 @@ export const logOut = (req, res) => {
 
     try {
         res.clearCookie("token")
+
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
+        });
 
         return res.status(200).json({ message: "logout successfully" })
     } catch (error) {
