@@ -40,7 +40,7 @@ export const signup = async (req, res) => {
             secure: true
         }))
 
-
+        console.log("Set-Cookie Header:", res.getHeader("Set-Cookie"));
 
         return res.status(200).json({
             message: "signup successfully",
@@ -93,6 +93,8 @@ export const login = async (req, res) => {
             sameSite: "None",
             secure: true
         }))
+
+        console.log("Set-Cookie Header:", res.getHeader("Set-Cookie"));
 
         console.log("Cookie set successfully");
 

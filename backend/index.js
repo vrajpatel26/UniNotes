@@ -41,6 +41,16 @@ app.use("/api/dashboard", dashboardRouter)
 app.use("/api/bookmark", bookmarkRouter)
 app.use("/api/feedback", feedbackRouter);
 
+app.get("/api/test-cookie", (req, res) => {
+    res.cookie("test", "hello", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+    });
+
+    res.json({ message: "cookie sent" });
+});
+
 connectDB()
 app.listen(PORT, () => {
     console.log(`server started on ${PORT} PORT`)
