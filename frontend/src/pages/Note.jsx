@@ -127,7 +127,7 @@ const Note = () => {
             <div className='text-white flex flex-col items-center p-5'>
 
                 <h1 className='text-[40px] font-bold font-serif'>Pick a <span className='text-purple-500'>PDF</span></h1>
-                <p className='text-[15px] text-center lg:text-[18px] text-gray-400'>Explore the available notes for this unit. Tap Note to open PDF</p>
+                <p className='text-[15px] text-center lg:text-[18px] text-gray-400'>Explore the available notes for this unit. Tap View to open PDF</p>
 
             </div>
             <div
