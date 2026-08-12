@@ -3,6 +3,7 @@
 UniNotes is a MERN Stack-based platform that helps students access organized study materials semester-wise, subject-wise, and unit-wise. The platform allows administrators to manage academic content efficiently while providing students with a simple and user-friendly learning experience.
 
 ---
+🔗 Live Demo: https://uninotes-app.onrender.com/
 
 ## 📸 Project Preview
 
